@@ -1268,7 +1268,7 @@
     section[id] { scroll-margin-top: var(--nav-h); }
     .why { background: var(--white); }
     .why-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 64px; align-items: center; }
-    .why-media { border-radius: var(--radius-lg); overflow: hidden; background: #D9D9DB; }
+    .why-media { }
     .why-media img { width: 100%; height: auto; display: block; }
     .why-list { list-style: none; margin-top: 32px; display: flex; flex-direction: column; gap: 22px; }
     .why-item { display: flex; gap: 16px; align-items: flex-start; }
@@ -1282,7 +1282,7 @@
 
     .who { background: var(--off-white); }
     .who-head { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; margin-bottom: 48px; }
-    .who-img { width: 100%; height: auto; border-radius: var(--radius-lg); box-shadow: var(--shadow-md); }
+    .who-img { width: 100%; height: auto; display: block; }
     .use-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
     .use-card {
       background: var(--white); border: 1px solid var(--gray-100); border-radius: var(--radius-md);
@@ -1297,7 +1297,7 @@
 
     .faq { background: var(--white); }
     .faq-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 64px; align-items: start; }
-    .faq-side img { width: 100%; height: auto; border-radius: var(--radius-lg); margin-top: 12px; }
+    .faq-side img { width: 100%; height: auto; display: block; margin-top: 12px; }
     .faq-list { display: flex; flex-direction: column; gap: 12px; }
     .faq-item { border: 1px solid var(--gray-100); border-radius: var(--radius-md); background: var(--off-white); }
     .faq-item summary {
@@ -1314,6 +1314,22 @@
     .cmp-group { display: flex; flex-direction: column; gap: 10px; }
     .cmp-metric { font-family: var(--font-heading); font-weight: 700; font-size: 14px; color: var(--navy); }
     .cmp-group .hbar-row { grid-template-columns: 110px 1fr 52px; }
+
+    .studies { background: var(--navy-dark); }
+    .studies .section-title { color: #fff; }
+    .studies .section-desc { color: rgba(255,255,255,.7); }
+    .study-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 40px; }
+    .study-card {
+      margin: 0; padding: 28px 24px; display: flex; flex-direction: column; gap: 14px;
+      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1); border-radius: var(--radius-md);
+    }
+    .study-num { font-family: var(--font-heading); font-size: 36px; font-weight: 800; color: #6FD3FF; line-height: 1; }
+    .study-card blockquote { margin: 0; flex: 1; font-size: 15px; line-height: 1.7; color: rgba(255,255,255,.85); }
+    .study-card figcaption { font-size: 12px; line-height: 1.5; text-align: left; }
+    .study-card figcaption a { color: rgba(255,255,255,.6); text-decoration: underline; text-underline-offset: 3px; }
+    .study-card figcaption a:hover { color: #fff; }
+    [dir="rtl"] .study-card blockquote, [dir="rtl"] .studies .section-desc { text-align: right; }
+    @media (max-width: 1024px) { .study-grid { grid-template-columns: 1fr; } }
 
     @media (max-width: 1024px) {
       .why-grid, .who-head, .faq-grid { grid-template-columns: 1fr; gap: 36px; }
@@ -1699,7 +1715,6 @@
                alt="Man pointing to the EZYPRO® ECG patch worn on his chest under an open shirt" />
         </div>
         <div class="why-content reveal reveal-delay-1">
-          <span class="section-label" data-i18n="why.label">Why EZYPRO®</span>
           <h2 class="section-title" data-i18n="why.title">Asia's No.1 arrhythmia monitor</h2>
           <p class="section-desc" data-i18n="why.desc">A small patch that records every heartbeat for up to 14 days, while you get on with your life.</p>
           <ul class="why-list">
@@ -1734,7 +1749,6 @@
       <div class="section-inner">
         <div class="who-head">
           <div class="reveal">
-            <span class="section-label" data-i18n="who.label">Who it's for</span>
             <h2 class="section-title" data-i18n="who.title">One patch, four ways to protect your heart</h2>
             <p class="section-desc" data-i18n="who.desc">Your physician may prescribe EZYPRO® when a short test is not enough to see what your heart is really doing.</p>
           </div>
@@ -1767,11 +1781,35 @@
       </div>
     </section>
 
+    <!-- WHAT STUDIES SAY -->
+    <section class="studies" id="studies">
+      <div class="section-inner">
+        <h2 class="section-title reveal" data-i18n="studies.title">What studies say</h2>
+        <p class="section-desc reveal" data-i18n="studies.desc">Published clinical research on 14-day ECG patch monitoring and patient experience.</p>
+        <div class="study-grid">
+          <figure class="study-card reveal">
+            <div class="study-num" dir="ltr">59.5%</div>
+            <blockquote data-i18n="s1.text">158 patients wore a 14-day ECG patch for an average of 12.3 days. The patch found arrhythmias in 59.5% of patients, compared with 19.0% for a 24-hour Holter, and 87.2% of the arrhythmias it recorded caused no symptoms. No serious adverse events were reported.</blockquote>
+            <figcaption dir="ltr"><a href="https://doi.org/10.1016/j.ijcard.2021.03.015" target="_blank" rel="noopener">Liu C-M et al., International Journal of Cardiology, 2021</a></figcaption>
+          </figure>
+          <figure class="study-card reveal reveal-delay-1">
+            <div class="study-num" dir="ltr">69.9%</div>
+            <blockquote data-i18n="s2.text">In 83 patients with ischemic stroke or fainting (syncope), the EZYPRO® 14-day patch detected arrhythmias in 69.9% of patients, compared with 21.7% for a 24-hour Holter. Skin rash at the patch site was reported by 3.6% of patients.</blockquote>
+            <figcaption dir="ltr"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10918718/" target="_blank" rel="noopener">Chen W-C et al., Clinical Cardiology, 2024</a></figcaption>
+          </figure>
+          <figure class="study-card reveal reveal-delay-2">
+            <div class="study-num" dir="ltr">2025</div>
+            <blockquote data-i18n="s3.text">A national review of the evidence found that ECG patch monitors show good usability and are well received by patients compared with traditional Holter monitors. Only minor side effects were linked to patches, such as mild skin reactions.</blockquote>
+            <figcaption dir="ltr"><a href="https://shtg.scot/our-advice/electrocardiogram-ecg-patch-monitors-for-the-detection-of-cardiac-rhythm-abnormalities/" target="_blank" rel="noopener">Scottish Health Technologies Group, ECG patch monitors assessment, 2025</a></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
     <!-- FAQ -->
     <section class="faq" id="faq">
       <div class="section-inner faq-grid">
         <div class="faq-side reveal">
-          <span class="section-label" data-i18n="faq.label">FAQ</span>
           <h2 class="section-title" data-i18n="faq.title">Questions patients ask</h2>
           <img src="/assets/woman-wearing-ezypro.webp" width="1200" height="673" loading="lazy"
                alt="Smiling woman relaxing on a sofa while wearing the EZYPRO® ECG patch" />
@@ -1809,7 +1847,6 @@
     <section class="contact" id="contact">
       <div class="section-inner contact-grid">
         <div class="contact-info reveal">
-          <span class="section-label" data-i18n="contact.label">Get in Touch</span>
           <h2 class="section-title" data-i18n="contact.title">Let's Talk About Your Needs</h2>
           <p data-i18n="contact.desc">Share your comments or requests. Our team is ready to help physicians and healthcare providers integrate EZYPRO® into their practice.</p>
 
@@ -1895,7 +1932,6 @@
     <!-- Info Hero -->
     <div class="info-hero">
       <div class="info-hero-inner">
-        <span class="section-label" style="color:rgba(255,255,255,0.65); letter-spacing:0.14em;" data-i18n="info.label">Clinical Overview</span>
         <h2 class="info-title" data-i18n="info.title">Integrated ECG Monitoring &amp; Analysis</h2>
         <p data-i18n="info.desc">The ECG Patch Monitor integrates seamlessly with an advanced ECG Analysis Service. It supports physicians, healthcare providers, and patients by enabling more accurate diagnoses, improved treatment decisions, and continuous, seamless monitoring.</p>
       </div>
@@ -1904,7 +1940,6 @@
     <!-- Service Process -->
     <section class="process">
       <div class="section-inner">
-        <span class="section-label" data-i18n="process.label">How It Works</span>
         <h2 class="section-title" data-i18n="process.title">EZYPRO® Service Process</h2>
         <div class="process-grid">
           <div class="steps">
@@ -1967,7 +2002,6 @@
     <!-- Clinical Results -->
     <section class="clinical">
       <div class="section-inner">
-        <span class="section-label" data-i18n="clinical.label">Evidence-Based Results</span>
         <h2 class="section-title" data-i18n="clinical.title">Clinical Results Summary</h2>
         <p class="section-desc" data-i18n="clinical.desc">Key performance data from clinical studies comparing EZYPRO® against 24-hour Holter monitoring.</p>
 
@@ -2012,7 +2046,6 @@
     <!-- Charts / Detailed Clinical Data -->
     <section class="charts">
       <div class="section-inner">
-        <span class="section-label" data-i18n="charts.label">Data Visualization</span>
         <h2 class="section-title" data-i18n="charts.title">Detailed Clinical Data</h2>
         <p class="section-desc" data-i18n="charts.desc">Patient compliance, skin tolerability, arrhythmia detection comparisons, and detection rates — all from peer-reviewed clinical studies.</p>
 
@@ -2374,6 +2407,11 @@
         'form.success': "Thank you! We'll be in touch soon.",
         'info.label': 'Clinical Overview',
         'info.title': 'Integrated ECG Monitoring & Analysis',
+        "studies.title": "What studies say",
+        "studies.desc": "Published clinical research on 14-day ECG patch monitoring and patient experience.",
+        "s1.text": "158 patients wore a 14-day ECG patch for an average of 12.3 days. The patch found arrhythmias in 59.5% of patients, compared with 19.0% for a 24-hour Holter, and 87.2% of the arrhythmias it recorded caused no symptoms. No serious adverse events were reported.",
+        "s2.text": "In 83 patients with ischemic stroke or fainting (syncope), the EZYPRO® 14-day patch detected arrhythmias in 69.9% of patients, compared with 21.7% for a 24-hour Holter. Skin rash at the patch site was reported by 3.6% of patients.",
+        "s3.text": "A national review of the evidence found that ECG patch monitors show good usability and are well received by patients compared with traditional Holter monitors. Only minor side effects were linked to patches, such as mild skin reactions.",
         "why.label": "Why EZYPRO®",
         "why.title": "Asia's No.1 arrhythmia monitor",
         "why.desc": "A small patch that records every heartbeat for up to 14 days, while you get on with your life.",
@@ -2537,6 +2575,11 @@
         'form.success': 'תודה! נחזור אליך בהקדם.',
         'info.label': 'סקירה קלינית',
         'info.title': 'מערכת ניטור וניתוח א.ק.ג. משולבת',
+        "studies.title": "מה אומרים המחקרים",
+        "studies.desc": "מחקרים קליניים שפורסמו על ניטור במדבקת א.ק.ג. ל-14 יום ועל חוויית המטופלים.",
+        "s1.text": "158 מטופלים ענדו מדבקת א.ק.ג. ל-14 יום במשך 12.3 ימים בממוצע. המדבקה גילתה הפרעות קצב אצל 59.5% מהמטופלים, לעומת 19.0% בהולטר של 24 שעות, ו-87.2% מהפרעות הקצב שתועדו לא גרמו לתסמינים. לא דווחו תופעות לוואי חמורות.",
+        "s2.text": "אצל 83 מטופלים לאחר שבץ איסכמי או עילפון (סינקופה), מדבקת EZYPRO® ל-14 יום גילתה הפרעות קצב אצל 69.9% מהמטופלים, לעומת 21.7% בהולטר של 24 שעות. פריחה בעור באזור המדבקה דווחה אצל 3.6% מהמטופלים.",
+        "s3.text": "סקירה לאומית של הראיות מצאה שמוניטורים מסוג מדבקת א.ק.ג. נוחים לשימוש ומתקבלים היטב על ידי מטופלים בהשוואה להולטר מסורתי. רק תופעות לוואי קלות נקשרו למדבקות, כמו תגובות עור קלות.",
         "why.label": "למה EZYPRO®",
         "why.title": "מוניטור הפרעות הקצב המוביל באסיה",
         "why.desc": "מדבקה קטנה שמקליטה כל פעימת לב עד 14 יום, בזמן שאתם ממשיכים בשגרה.",
@@ -2700,6 +2743,11 @@
         'form.success': 'Спасибо! Мы свяжемся с вами в ближайшее время.',
         'info.label': 'Клинический обзор',
         'info.title': 'Интегрированный мониторинг и анализ ЭКГ',
+        "studies.title": "Что говорят исследования",
+        "studies.desc": "Опубликованные клинические исследования 14-дневного мониторинга ЭКГ-патчем и опыта пациентов.",
+        "s1.text": "158 пациентов носили 14-дневный ЭКГ-патч в среднем 12,3 дня. Патч выявил аритмии у 59,5% пациентов против 19,0% при 24-часовом Холтере, причём 87,2% зарегистрированных аритмий протекали бессимптомно. Серьёзных нежелательных явлений не зафиксировано.",
+        "s2.text": "У 83 пациентов с ишемическим инсультом или обмороком (синкопе) 14-дневный патч EZYPRO® выявил аритмии у 69,9% пациентов против 21,7% при 24-часовом Холтере. Сыпь в месте крепления патча отметили 3,6% пациентов.",
+        "s3.text": "Национальный обзор данных показал, что ЭКГ-патчи удобны в использовании и хорошо воспринимаются пациентами по сравнению с традиционным Холтером. С патчами связаны лишь незначительные побочные эффекты, например лёгкие кожные реакции.",
         "why.label": "Почему EZYPRO®",
         "why.title": "Монитор аритмий №1 в Азии",
         "why.desc": "Небольшой патч записывает каждый удар сердца до 14 дней, пока вы живёте обычной жизнью.",
