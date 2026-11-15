@@ -164,7 +164,6 @@
     [dir="rtl"] h3,
     [dir="rtl"] h4,
     [dir="rtl"] .hero-title,
-    [dir="rtl"] .hero-subtitle,
     [dir="rtl"] .section-title,
     [dir="rtl"] .nav-links a,
     [dir="rtl"] .btn,
@@ -411,9 +410,9 @@
       margin: 0 auto;
       padding: 64px 24px 64px;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1.05fr 0.95fr;
       align-items: center;
-      gap: 56px;
+      gap: 24px;
       position: relative;
       z-index: 1;
     }
@@ -432,22 +431,13 @@
       color: var(--white);
       font-weight: 800;
     }
-    .hero-subtitle {
-      font-family: var(--font-heading);
-      font-size: clamp(15px, 1.8vw, 18px);
-      font-weight: 500;
-      color: rgba(255,255,255,0.88);
-      margin-bottom: 16px;
-      line-height: 1.5;
+    .hero-lead {
+      font-size: clamp(15px, 1.5vw, 17px);
+      color: rgba(255,255,255,0.9);
+      line-height: 1.65;
+      margin-bottom: 32px;
+      max-width: 500px;
     }
-    .hero-desc {
-      font-size: 15px;
-      color: rgba(255,255,255,0.82);
-      line-height: 1.7;
-      margin-bottom: 36px;
-      max-width: 480px;
-    }
-    .hero-desc strong { color: var(--white); font-weight: 700; }
     .hero-btns {
       display: flex;
       gap: 12px;
@@ -495,44 +485,92 @@
     .hero-image-wrap {
       position: relative;
       width: 100%;
-      max-width: 460px;
+      max-width: 580px;
+      animation: heroFloat 6s ease-in-out infinite;
     }
     .hero-image-wrap img {
       width: 100%;
-      mix-blend-mode: screen;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 30px 40px rgba(0,0,0,.35));
     }
+    /* faint heart-monitor line across the hero, behind the patch */
+    .hero-ecg {
+      position: absolute; left: 46%; right: 0; top: calc(50% + var(--nav-h) / 2); height: 240px;
+      transform: translateY(-50%); z-index: 0; opacity: .6; pointer-events: none;
+      mask-image: linear-gradient(90deg, transparent, #000 18%, #000 88%, transparent);
+    }
+    .hero-ecg svg { width: 100%; height: 100%; display: block; }
+    [dir="rtl"] .hero-ecg { left: 0; right: 46%; }
+    .hero-ecg path { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+    .hero-ecg .ecg-ghost { stroke: rgba(111,211,255,.10); }
+    .hero-ecg .ecg-draw { stroke: rgba(111,211,255,.55); filter: drop-shadow(0 0 4px rgba(111,211,255,.6)); }
 
-    /* Stats bar below hero content */
+    /* trust row */
+    .hero-trust { margin-top: 28px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .hero-trust > span { font-size: 13px; color: rgba(255,255,255,.85); }
+    .hero-trust-logos { display: flex; align-items: center; gap: 18px; }
+    .hero-trust-logos img { height: 24px; width: auto; opacity: .92; }
+
+    /* stats */
     .hero-stats {
-      display: flex;
-      gap: 0;
+      display: grid;
+      grid-template-columns: repeat(3, auto);
       background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: var(--radius-sm);
-      overflow: hidden;
-      margin-top: 48px;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: var(--radius-md);
+      margin-top: 32px;
       width: fit-content;
     }
     .hero-stat {
-      padding: 16px 28px;
+      position: relative;
+      padding: 18px 28px;
       text-align: center;
-      border-right: 1px solid rgba(255,255,255,0.1);
+      border-inline-end: 1px solid rgba(255,255,255,0.12);
+      cursor: help;
+      outline: none;
     }
-    .hero-stat:last-child { border-right: none; }
+    .hero-stat:last-child { border-inline-end: none; }
+    .hero-stat:focus-visible { box-shadow: inset 0 0 0 2px #6FD3FF; border-radius: var(--radius-md); }
     .hero-stat-num {
       font-family: var(--font-heading);
-      font-size: 22px;
+      font-size: 32px;
       font-weight: 800;
       color: var(--white);
       line-height: 1;
+      font-variant-numeric: tabular-nums;
     }
+    .hero-stat-unit { font-size: 20px; margin-inline-start: 3px; }
     .hero-stat-label {
       font-family: var(--font-body);
-      font-size: 11px;
-      font-weight: 400;
-      color: rgba(255,255,255,0.72);
-      margin-top: 5px;
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.92);
+      margin-top: 8px;
       white-space: nowrap;
+    }
+    .hero-stat-src {
+      position: absolute; bottom: calc(100% + 10px); left: 50%; transform: translate(-50%, 4px);
+      width: 260px; padding: 10px 12px; border-radius: 10px; z-index: 5;
+      background: #fff; color: var(--navy-dark); box-shadow: var(--shadow-lg);
+      font-size: 12px; line-height: 1.5; text-align: start; white-space: normal;
+      opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s;
+    }
+    .hero-stat:first-child .hero-stat-src { left: 0; transform: translate(0, 4px); }
+    .hero-stat:last-child .hero-stat-src { left: auto; right: 0; transform: translate(0, 4px); }
+    .hero-stat:hover .hero-stat-src, .hero-stat:focus-visible .hero-stat-src, .hero-stat:focus .hero-stat-src {
+      opacity: 1; transform: translate(-50%, 0);
+    }
+    .hero-stat:first-child:hover .hero-stat-src, .hero-stat:first-child:focus .hero-stat-src,
+    .hero-stat:last-child:hover .hero-stat-src, .hero-stat:last-child:focus .hero-stat-src { transform: translate(0, 0); }
+
+    /* entrance: headline, text, buttons, trust, stats (≈0.6s total) */
+    .hero-in { opacity: 0; transform: translateY(14px); animation: heroIn .5s cubic-bezier(.2,.7,.3,1) forwards; animation-delay: calc(var(--d, 0) * 80ms + 60ms); }
+    @keyframes heroIn { to { opacity: 1; transform: none; } }
+    @keyframes heroFloat { 0%,100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-10px) rotate(.8deg); } }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-in { animation: none; opacity: 1; transform: none; }
+      .hero-image-wrap { animation: none; }
     }
 
     /* ==============================
@@ -1410,10 +1448,12 @@
     ============================== */
     @media (max-width: 1024px) {
       .hero-inner { grid-template-columns: 1fr; text-align: center; padding: 48px 24px 56px; }
-      .hero-desc { max-width: 100%; }
+      .hero-lead { max-width: 560px; margin-inline: auto; }
+      .hero-trust { justify-content: center; }
       .hero-btns { justify-content: center; }
       .hero-stats { margin: 40px auto 0; }
-      .hero-image-wrap { max-width: 260px; margin: 0 auto; }
+      .hero-image-wrap { max-width: 300px; margin: 0 auto; }
+      .hero-ecg { display: none; }
       .hero-visual { order: -1; }
       .contact-grid { grid-template-columns: 1fr; gap: 40px; }
       .process-grid { grid-template-columns: 1fr; }
@@ -1425,9 +1465,25 @@
       section { padding: 56px 20px; }
       .nav-links, .nav-contact { display: none; }
       .hamburger { display: flex; }
-      .hero-stats { flex-wrap: wrap; }
-      .hero-stat { padding: 12px 18px; }
-      .hero-stat-num { font-size: 18px; }
+      /* phone: headline, then a smaller patch, then text, buttons, trust and stats */
+      .hero-inner { display: flex; flex-direction: column; align-items: center; gap: 0; padding: 24px 20px 40px; }
+      .hero-content { display: contents; }
+      .hero-title { order: 1; margin-bottom: 4px; }
+      .hero-visual { order: 2; margin: 0 0 8px; }
+      .hero-image-wrap { max-width: 190px; }
+      .hero-lead { order: 3; margin-bottom: 22px; }
+      .hero-btns { order: 4; flex-wrap: nowrap; width: 100%; max-width: 380px; }
+      .hero-btns .btn { flex: 1 1 0; justify-content: center; padding: 12px 8px; font-size: 13px; white-space: nowrap; }
+      .hero-title { font-size: 28px; }
+      .hero-trust { order: 5; margin-top: 22px; gap: 10px; flex-direction: column; }
+      .hero-trust-logos { gap: 14px; }
+      .hero-trust-logos img { height: 20px; }
+      .hero-stats { order: 6; width: 100%; grid-template-columns: repeat(3, 1fr); margin-top: 24px; }
+      .hero-stat { padding: 14px 6px; }
+      .hero-stat-num { font-size: 24px; }
+      .hero-stat-unit { font-size: 15px; }
+      .hero-stat-label { font-size: 12px; white-space: normal; }
+      .hero-stat-src { width: 220px; }
       .form-row { grid-template-columns: 1fr; }
       .results-grid { grid-template-columns: 1fr; }
       .result-card.highlight { grid-column: span 1; }
@@ -1440,7 +1496,6 @@
       .nav-right .nav-btn-primary { display: none; }
       .lang-btn { padding: 6px 9px; }
       .btn { padding: 12px 18px; font-size: 13px; }
-      .hero-stats { display: none; }
     }
 
     /* ==============================
@@ -1471,7 +1526,7 @@
       text-align: right;
     }
     /* Hero desc: constrain width, keep at start (right) */
-    [dir="rtl"] .hero-desc {
+    [dir="rtl"] .hero-lead {
       margin-right: 0;
       margin-left: auto;
     }
@@ -1639,18 +1694,29 @@
 
     <!-- HERO -->
     <section class="hero" id="hero">
+      <div class="hero-ecg" aria-hidden="true">
+        <svg viewBox="0 0 1200 240" preserveAspectRatio="xMidYMid slice">
+          <path id="heroEcgPath" class="ecg-ghost" d="M0 140 L0 140 L34 140 L40 132 L47 140 L54 140 L58 152 L64 60 L70 170 L75 140 L84 140 L94 124 L105 140 L120 140 L120 140 L154 140 L160 132 L167 140 L174 140 L178 152 L184 60 L190 170 L195 140 L204 140 L214 124 L225 140 L240 140 L240 140 L274 140 L280 132 L287 140 L294 140 L298 152 L304 60 L310 170 L315 140 L324 140 L334 124 L345 140 L360 140 L360 140 L394 140 L400 132 L407 140 L414 140 L418 152 L424 60 L430 170 L435 140 L444 140 L454 124 L465 140 L480 140 L480 140 L514 140 L520 132 L527 140 L534 140 L538 152 L544 60 L550 170 L555 140 L564 140 L574 124 L585 140 L600 140 L600 140 L634 140 L640 132 L647 140 L654 140 L658 152 L664 60 L670 170 L675 140 L684 140 L694 124 L705 140 L720 140 L720 140 L754 140 L760 132 L767 140 L774 140 L778 152 L784 60 L790 170 L795 140 L804 140 L814 124 L825 140 L840 140 L840 140 L874 140 L880 132 L887 140 L894 140 L898 152 L904 60 L910 170 L915 140 L924 140 L934 124 L945 140 L960 140 L960 140 L994 140 L1000 132 L1007 140 L1014 140 L1018 152 L1024 60 L1030 170 L1035 140 L1044 140 L1054 124 L1065 140 L1080 140 L1080 140 L1114 140 L1120 132 L1127 140 L1134 140 L1138 152 L1144 60 L1150 170 L1155 140 L1164 140 L1174 124 L1185 140 L1200 140" />
+          <path class="ecg-draw" d="M0 140 L0 140 L34 140 L40 132 L47 140 L54 140 L58 152 L64 60 L70 170 L75 140 L84 140 L94 124 L105 140 L120 140 L120 140 L154 140 L160 132 L167 140 L174 140 L178 152 L184 60 L190 170 L195 140 L204 140 L214 124 L225 140 L240 140 L240 140 L274 140 L280 132 L287 140 L294 140 L298 152 L304 60 L310 170 L315 140 L324 140 L334 124 L345 140 L360 140 L360 140 L394 140 L400 132 L407 140 L414 140 L418 152 L424 60 L430 170 L435 140 L444 140 L454 124 L465 140 L480 140 L480 140 L514 140 L520 132 L527 140 L534 140 L538 152 L544 60 L550 170 L555 140 L564 140 L574 124 L585 140 L600 140 L600 140 L634 140 L640 132 L647 140 L654 140 L658 152 L664 60 L670 170 L675 140 L684 140 L694 124 L705 140 L720 140 L720 140 L754 140 L760 132 L767 140 L774 140 L778 152 L784 60 L790 170 L795 140 L804 140 L814 124 L825 140 L840 140 L840 140 L874 140 L880 132 L887 140 L894 140 L898 152 L904 60 L910 170 L915 140 L924 140 L934 124 L945 140 L960 140 L960 140 L994 140 L1000 132 L1007 140 L1014 140 L1018 152 L1024 60 L1030 170 L1035 140 L1044 140 L1054 124 L1065 140 L1080 140 L1080 140 L1114 140 L1120 132 L1127 140 L1134 140 L1138 152 L1144 60 L1150 170 L1155 140 L1164 140 L1174 124 L1185 140 L1200 140" pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="1000">
+            <animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.88;1" dur="7s" repeatCount="indefinite" />
+            <animate attributeName="opacity" values="1;1;0" keyTimes="0;0.88;1" dur="7s" repeatCount="indefinite" />
+          </path>
+          <circle class="ecg-dot" r="4">
+            <animateMotion dur="7s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;0.88;1" calcMode="linear">
+              <mpath href="#heroEcgPath" />
+            </animateMotion>
+            <animate attributeName="opacity" values="1;1;0" keyTimes="0;0.88;1" dur="7s" repeatCount="indefinite" />
+          </circle>
+        </svg>
+      </div>
       <div class="hero-inner">
         <div class="hero-content">
-          <h1 class="hero-title">
-            EZYPRO® <span data-i18n="hero.title.line1">14&nbsp;Day</span><br>
+          <h1 class="hero-title hero-in" style="--d:0">
+            EZYPRO® <span data-i18n="hero.title.line1">up to 14&nbsp;Days</span><br>
             <span data-i18n="hero.title.line2">Continuous ECG Monitoring Patch</span>
           </h1>
-          <p class="hero-subtitle" data-i18n="hero.subtitle">Powered by AI for Earlier Arrhythmia Detection</p>
-          <p class="hero-desc">
-            <span data-i18n="hero.desc">A waterproof, hypoallergenic ECG patch with </span><strong data-i18n="hero.desc.bold1">3× diagnostic yield</strong>
-            <span data-i18n="hero.desc.and"> and </span><strong data-i18n="hero.desc.bold2">80% patient compliance</strong><span data-i18n="hero.desc.end">, supporting seamless, continuous cardiac monitoring.</span>
-          </p>
-          <div class="hero-btns">
+          <p class="hero-lead hero-in" style="--d:1" data-i18n="hero.lead">Powered by AI for earlier arrhythmia detection: a waterproof, hypoallergenic patch you wear at home while it records every heartbeat.</p>
+          <div class="hero-btns hero-in" style="--d:2">
             <a href="#contact" class="btn btn-white">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
               <span data-i18n="hero.cta.contact">Contact Us</span>
@@ -1660,36 +1726,36 @@
               <span data-i18n="hero.cta.brochure">Download Brochure</span>
             </a>
           </div>
-
-          <!-- Stats row — inside content, not absolutely positioned -->
-          <div class="hero-stats">
-            <div class="hero-stat">
-              <div class="hero-stat-num">3×</div>
-              <div class="hero-stat-label" data-i18n="stat.yield">Diagnostic Yield</div>
+          <div class="hero-trust hero-in" style="--d:3">
+            <span data-i18n="hero.trust">Regulatory approvals</span>
+            <div class="hero-trust-logos"><img src="/assets/certs/mono/us-fda.png" alt="U.S. FDA" /><img src="/assets/certs/mono/singapore-hsa.png" alt="Singapore HSA" /><img src="/assets/certs/mono/fda-philippines.png" alt="FDA Philippines" /><img src="/assets/certs/mono/indonesia-moh.png" alt="Indonesia Ministry of Health" /></div>
+          </div>
+          <div class="hero-stats hero-in" style="--d:4">
+            <div class="hero-stat" tabindex="0" aria-describedby="heroSrc1">
+              <div class="hero-stat-num" dir="ltr"><span data-count="3">3</span>×</div>
+              <div class="hero-stat-label" data-i18n="stat.found">more arrhythmias found</div>
+              <div class="hero-stat-src" role="tooltip" id="heroSrc1" data-i18n="stat.src1">Arrhythmias found in 59.5% of patients vs 19.0% with a 24-hour Holter. Liu C-M et al., International Journal of Cardiology, 2021.</div>
             </div>
-            <div class="hero-stat">
-              <div class="hero-stat-num">80%</div>
-              <div class="hero-stat-label" data-i18n="stat.compliance">Patient Compliance</div>
+            <div class="hero-stat" tabindex="0" aria-describedby="heroSrc2">
+              <div class="hero-stat-num" dir="ltr"><span data-count="14">14</span></div>
+              <div class="hero-stat-label" data-i18n="stat.days2">days continuous</div>
+              <div class="hero-stat-src" role="tooltip" id="heroSrc2" data-i18n="stat.src2">Records continuous ECG for up to 14 days. FDA 510(k) clearance K213233.</div>
             </div>
-            <div class="hero-stat">
-              <div class="hero-stat-num">14</div>
-              <div class="hero-stat-label" data-i18n="stat.days">Days Continuous</div>
-            </div>
-            <div class="hero-stat">
-              <div class="hero-stat-num">0%</div>
-              <div class="hero-stat-label" data-i18n="stat.irritation">Skin Irritation &gt;3</div>
+            <div class="hero-stat" tabindex="0" aria-describedby="heroSrc3">
+              <div class="hero-stat-num" dir="ltr"><span data-count="19">19</span><span class="hero-stat-unit" data-i18n="stat.gram">g</span></div>
+              <div class="hero-stat-label" data-i18n="stat.light">light & waterproof</div>
+              <div class="hero-stat-src" role="tooltip" id="heroSrc3" data-i18n="stat.src3">19 g recorder on a waterproof, breathable adhesive patch. SIGKNOW Biomedical product specifications.</div>
             </div>
           </div>
         </div>
 
-        <div class="hero-visual">
+        <div class="hero-visual hero-in" style="--d:1">
           <div class="hero-image-wrap">
             <img src="/assets/ezypro-ecg-patch.webp" width="900" height="765"
                  alt="EZYPRO® ECG Recorder — SIGKNOW patch device" loading="eager" fetchpriority="high" />
+            <div class="ecg-pulse" aria-hidden="true"><span></span><span></span></div>
           </div>
         </div>
-      </div>
-
       </div>
     </section>
 
@@ -1697,13 +1763,13 @@
     <div class="certs">
       <p class="certs-label" data-i18n="certs.label">Approvals &amp; Certifications</p>
       <div class="certs-grid">
-        <img class="cert-logo" width="119" height="70" src="data:image/png;base64,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" alt="Vietnam Ministry of Health" loading="lazy" />
-        <img class="cert-logo" width="119" height="70" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHcAAABGCAMAAADBwfuwAAAAXVBMVEVMaXEBd70Ceb4Ed74Der0GebwBd71Hk6sAd70JerwFeL8Bd74Ad70Eeb8Deb8Eeb8Eeb32z1/50l350V7vzWEDd7300F/0zl/KwHBbl5qNqodtn5QAd7340F4phq2IdQ2oAAAAHHRSTlMAnG8+FSbaB/AyRsOvTlZhguUmv46NRl76+vB6mjO0FQAAAAlwSFlzAAALEwAACxMBAJqcGAAABDZJREFUeNrtWItyqjAQJc9NAiQ8tfZC//8z7yYBRKFVOjBOZ1ynFgU5nN2zjyRJ3va2t73tD5sw/DW4kvwIzI0+BtgoAt+dA1ZIeRBuQlW7CgyapqrrMjgIF4iiyy8FzRAUjR4WYp4qdv+dll00KY7TllbpTFvAgxMG3MPcHELcjdry/k1F0HnEtUcmE2Sdi1kVgkriswQ3D444iLWWMY489WBKT4RJPF9VBzEuBk/nakLzEVZ5hG0O4ctzIgcI9Pgo4nxyc1WfDgBlbZRQ1LRRY9J6R7cRttldULpI1ZAxsUJEwin6FdIu5HVV1/t6GXPmCjo5NUQ4KIsEF5zKcldRCZfNQSfCUdL+sO0KD9ufdlbSwmIu0VHRBbJG2N2Cy027AjoR1moQWZHCuez3C65ZOPgmwkFZCqm31MPuGFxg3xG2o6O9ktum78udMxelvIYbuk9wtE0AYfvz/vXCrSCH/AmKpgG2OaQ8UrmuLF+ZiwB7UBsS5F5hvlD5AH99IGx9WM8HK1ccbVSEPar5RcpLR4uLhy2PhEXK9MbXvlBh2u6fQUu78bXkQcgzWOBcaKanZiIEDEcsz3OmOUwnxlNPGpPzAAfYWeKyNpNqWlRoqcIKAmwm0yxL5big4I7gZe3G8WrCDYrq+8/r2Awg0us8i0XFaw9aTDUOAJxRMY3Dgy5/wfgSYS/pzWKNLHCZmkbN2TSspkHwWYvzXHfpI9u7ny9xbSzhN2VISqu2Eg7N4OszoJZncrcq8rjJDa73qczh9g7UX0hg4+ps9DEqmdw99ZJv4rNPpU7M6GJsUCjLtdYDbUWyIYHIXewQV5Jo2aid2MUlMTDSdWEO30YYznWE/bgghewuHRA3ddGKKYRgwqykMhH3DYIU+TbCpwG1//jCu0JmkgfxnffSsI6jXau9bYlw1ZQD7OeXf1ze8uRRfEdk5O/HTiFVGk09QxgTvzpNqOUlTjj8ju4PuGEaIz6uDuspGtAn1sxQ1/UIin3vnxpw+fO4SeZ7GEYXpt2DTplHfJv+inqGMOCseWmJyykLDwdYcFBQxWx97p4gXI16KpsqZsFqwVni+nhmbVFkUhZ8TvdJwlVTl2XdnGOPZypOzovctlZPKw2bc9/1jCvQaNju41bcXv3EZgxUFVxrzo8bODDsN8D6vgP8fkuCdMs24xlwjcpPsK9rPMsMtj8REOIr0b4zCi38MdcCfrGx06Urv7LWmVxYk1OLFdkyYQzDT7n2/7BQOqeFobljxpjcUCO27i1igNcaKN6LWgRlBl9YpagQlOKQ47hzxnKOZxGPMfzgRJ4Lx7ZOl8oXnzU/M8YsQ1QhEo08hc7Rr8zgUY7zlzAWuQv885dqunWTD4VlvxfV+AYzhcGgo3l0BNsaYUjVUdu+Dzbu5Gu23zPyEtiE0JfAQqtfg0tfE154DV2fmm/7q/YfgOdqffTU0mgAAAAASUVORK5CYII=" alt="Singapore Health Sciences Authority (HSA)" loading="lazy" />
-        <img class="cert-logo" width="119" height="70" src="data:image/png;base64,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" alt="Thailand Ministry of Public Health" loading="lazy" />
-        <img class="cert-logo" width="119" height="70" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHcAAABGCAMAAADBwfuwAAAAV1BMVEVMaXHVyNw7AFo5AFlGDmNfMntLFWc/BF1OGmtDC2H///9UIHBIEmY3AFdwRYf28/fSxNk+BF3d0uKojbWMaZ9+VpJdLHe+qsibfavHttC0nL/n3+tlN32blXOMAAAACnRSTlMAkf//qRx97krPulTFIwAAAAlwSFlzAAALEwAACxMBAJqcGAAABmNJREFUeNq1WYuWmzgM7eKZyQwWxu/3/3/nXhkyaWd7ui1OdRIINvFFlqUri2/f5uT19fWd5e3t7YXl4wd5+fZkYbSB9PFxgxhjlkOOszlkuT0XcKDdkX4lH0+BHIi/hXeXl3lMhlz+VOZwgflFS7GJ04h/DfcVoJ/r5URdZMg1sVQpfoX7dh31v5MrKLd1bVZDHP0K11zGff/JRAq/rruXxGJ+qa55n8M9vXFYFVcF2tImhNjuIh6GPxtGy+067hisF0iqLsgxzXpdNQlDMqrgIUHFMd1C0NESVCesggnct8OgDqa0O9T0Rmxk19VmV2zbD1n3VgKmg7yG4blh3a3Diru9TuHi0THNFDG/ezehYlxeV8VlKBZjD5iApjbj0F/RpILDLYnEddyXh90M8biqN4bVmFpzGhPrGy1+i1A2mdG0JDxJFB+TuDBcz4UB9y6Vx9kdKweTHn0aT+I3hVPejudkXCmuh2fGFaZnve+2WlZie4wvlujR0RIMsIYtDPTlc8lLcT1cfWAQlfbVOkXmUOJzfBFdWxs6RGYDbH6gL/clb+k67itwfVv3TPBdVgKD3ccXCvascsGMs+HjxlZWJ65lV1smcIUcq0U8lNgO7U433j6tuTF6P3D5T8VMhOfbaU0Ep6EEBhPH+McDsbbiCGCiDq35zq3jT3WCFt5vQvJq8lFK2QGUxcLjw0cElXtHtMOBeP5rR9yWij1dieV6mLzBjIWDUIOse2HaO5YXllX67Fg1P4gb19bySSOAzdECgm7w2UG8GmFYIQDT8K97Rx4dTMueg1nLvoM3pulIDIIRd97hHw/2GfY8CQk/eLVh9iEIk3O08EciFPMHZr/MhOe3B6P+tpAKLLN0FNVFoSlagL32SzJHCyNYXJIp3BEm4Y9N6/044Mqyj9pxzZ5qcRwNO/fvIy/BX+ZoAbgt1hS7arpHGVpTWWolVWgJmQZCZumxW6+ktIhdecfBNU9+kha2uFuqQYL0lWqJUgmOdAzQmh+C82i0lr0ppSnliDt8rAoZyDQtaCpVSm8xViPnnZM6SpUTx2eWPYAQgZfIuuio5diadKCMOdy1kN6RRybpMbpTNkeNp2iF0zheP6FbkIDageuV4wNs61Y3RQtILhJpH3qH0YIMNay+a+ohN1whkdyD6L5VKG+lko4PFbgJ3DkTnkFuLbXiKsgouYQlu+rSUq0F5MSta6m1No1UaNXox6Hs/BdkQlO4+aL7AndmlyK8vShqmwrPdFXM5C5FfC+b+G1BUWV6l3IXivRz0uV5eWIx58SlLFnVRWRs7zm3GBdjH3TsiSNtKnDaMehaTON+nHWFEo0KapE6L2B1ElGhgcUg2ZKiWzhxFxRGV7iXHl5mcWWRBL8kqf3iXfVbLp2Ks05LE1xdlFXCoZW7XC1hm8R9/cQlWWIhSlFUbG43gFDpqRcpAbZIbHVdWFL3Gf3ujjsRng9cQMbEuEifnathw9By4FJI2Ymo+1Khck5qSaqqZ+GSMqSOA2oJMGqXghu4Cdt7YUJc0CXRZbhZTOK+n7UrOOPwyHMZj4bDr48MeuH2zy4hnlNE+q5e1n/mvlBe/I3i1QO2wojYfUCzR13SLCHCeZcvpcT54tUDN9rONUInt+g8O7TfglMGlbtS4NbRPwv3yy7FZI1iQq1+qR61Be/z5hw7F66FqvmsbXzivj4L1zi4bvWRCuYbmZZnh2Lngmshv/pSmn0WLYhek9qglxQ+BeELDk5tVGnE7Vq/0sKz6IgilyelxIZaEn9pAcsafEkiZqntaXT0hVLPXfB5GN+Tk1HUQuXyR7lOCy9yRq7jFj0j/1ynoyl9J2hBTMgcLZyUMChgfL4keveuL7fxjVPFK3gI3Ge8w0DBWSKvE3wdaXy4RoYrw/kefvM1/Ix/4jXAFC1kLbP2xbngSlJaZ4HA5FMKSdfcqsu1eFB9CtH6YBPuK0WlmsPEbuHNIMPRquqgdck66mw1qEATWX4E7Ed7zYhaOmOPnXUlrfAYSLiKLlO4y4ZdSk5Oldo80HGF6rbt0WaFDmljwmQotPeI9x5Id5yD+jnVfWaX8gIGUiG7TlmlmJNX4KCNXAq1BuezdJSDk9JJl3yOrjuJNzjJRb597t2CYRbiEw403qpgb0D3t8pmNIw+Y8Rowem8/Xm7lD+T2d3CVZnYLdxm5H9w/wX/LLaD5fkn4QAAAABJRU5ErkJggg==" alt="AFAQ ISO/IEC 27001 Information Security certification" loading="lazy" />
-        <img class="cert-logo" width="119" height="70" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHcAAABGCAMAAADBwfuwAAAAKlBMVEVMaXEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABqfk8+AAAADXRSTlMA+FfSfxI4akev6ZUmARwXrQAAAAlwSFlzAAALEwAACxMBAJqcGAAAA65JREFUeNrtmG2z9BAMhhWhXvr//+5DJRRlu+3OnHlmmi97XqxL4k4Exl577bXX/hMD/q2tysN8TpXGpeGDsXz53qwwch2zQeyjuNnihx5xt1u2CKcGXLkPMGzdpxb+p9xg9pys7L6u8D+3D3O/5gay7KMNJtO82Few/pwboqjOJ0zRTREXMOIuTn9h0oiyWNF4k3zcZIg3BIXRLwOu+jL5VidyrHn1L0cuggi4JC2rxlwtLxsPnjCQRLZHjxNo4THGMdYOtT3igvgqh0woB+Aw2odMwWkM7Kp2Wdz8J9wdrYFx/JKBOnXjthlU8khaN7mRppjCb+kqdaOfqOqxtO5zo5RRvRRpQ7/RdJJW0Emr4l6qzoeysZLH7lgLJEU34UyzFydcoS4Yl2Yp06I7vohKAMU7KflcWhXXXMxfReTAMHn/Us5EgCn64zml/XNu+JqlDUzuFCdNXXuLtNwvuGzNijKp+ON5EEKPHLvU0qrPh7tctlqcNs0q9UZeYRLzshDTJ/Ftbq4IKMnsf443/QBYPTc91LOrLJyuMn7qUBPTZ93OYG0yh5zWJKqYQXIirVndsJ7C4JeTcKTJOH5SKFFUrkos30nrIteecFP0HNPHrIFjBStrSGMO0nrATfvnGN8OVUJux3rcarxI6wEX8I+ZG+ZHLdH8nbRkz+0L8Qeub7mSHCxFEaWlSQ35fKB+Yz0zmMe52d8iqnIIQJ9eV/qrKZejaGQrqmNlWpe2nDz219R5FJyUW1+JHS2lltZ9XaXAWVWcxFDWZzw272UT5EMu1iDc5uik2c56GtmILi3rNldTzZWkHPSn7eF6acEDLrfVsRDcgabJG0tL3+aCXGiK3DnipCe3oU5avj2P6osQH+gZVpMLI4haVGe3Py/6Q2N+/tZcke4pLl/LwsJdI6owtr/Z5K4WO4CwuG+4J5fQfOtET2KHOb4ul/r9hBtoq60r1R7ByRUj7/V97uKARJ2VmhQzuVVx3Ovb/i5mzaI2pVHXbMqN0tKJf5VbvyNJFZv34qPZSsmYvkylNDdwkQvqcFrEazdTzpYXDhRVOmtgnZiKZcSqq3nU/NVzYw8PKySqi22wc+waV1TJ6Jyw9XuO3I7nkP/4UAEXuZPE8KWJomOXf7o3c/aQi89mpn7m+MRNTdB97oLPhHT7k+wS1yr2hJsfJ2lIPoc+cCW7yY3567hv2onSus5fHml5fj/xQh7Hj/4M4/0zIU8J3Iwo79t++sj45cvga6+99tpf2z+PQ5tNf2hDkAAAAABJRU5ErkJggg==" alt="U.S. Food and Drug Administration (FDA)" loading="lazy" />
-        <img class="cert-logo" width="119" height="70" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHcAAABGCAMAAADBwfuwAAAAZlBMVEVMaXEqKiq0tLRpaWk8PDzy9PRUVFT////T3QIPtK3d3d2Hh4cgurP7+/XPz8+jo6Pm6+uVlZX5+9uI2tj2+Ml5eXmx6Obm62tp0MwZGRnh6Eve5Tvx9KvDw8Pu8phCxL8LCwvS8fBkt9hGAAAAAXRSTlMAQObYZgAAAAlwSFlzAAALEwAACxMBAJqcGAAABDxJREFUeNrtmA1zqjoQhptks9GEfBWjjUrF//8nzwZEsPbOxXrqzL3DViTBDg9ZNvtu8vbWm3qVvd3awl24C3fhLtz/GFeez/L13HN9qqpTfX4xd1utO6u2L+UO2L8JnsGVp/XVTv1LtvYF3O16YjRge9wdDvvP99/m1lNurd73q84Ox1/mfkyw1dYeVoNdwE5aFxquZSNtEyy1tFbSac4bOoLmzgan6FflgqLWD7gUV5srdnXo3rIEb8BniLyNLieXmTFMO0isRZGBA6MLqHwbFaL0IB/nVtv3zwl39dlzGTjPvDYtxhY5i6XFmYsQBHANMUFCiQASWxN/wCXsYTfl7npuC5K34AUCIviWEQiRaRqaaKGh8XqDjhnW0M/4OLdgVzfcfc9NIDzjDiJkT7f3OhEmd1xoNCDjBlOGnNDQ8z3K7bDfcZGQhjGBLoqAkbFkhPKgOdrIwCOPGIWIMqLwijz+GLfHru79rIKkT9AyWHtpSbp3UJI+urscpKR/oqN8PRbPF+wtd/P356/c1h+9nT8m2BtuP1wbnTaNEN4J4TgdRivOVSO0Ie9q0SjvlTN2Fnd7zclV4V6xU+6+v1UfVzlxBOPoaBhXQiiaM55RRLXCYqZ5JudwRwXquCN2wr1gyzxCybPgghmNzDgGggkHAq0Q5aE0ZjQwh3uu1lPuBDtyB2zJG8wRt5GeYprGzNAwETONUgiesfUoKG/N4U6VoDrXE+yVe8WWPJnA0HgN+XvwMyUIw+j9CjCUQ5Jmc/w8FVzinifYgTtiS1xJw5PwXiRd4ipSXPnui3PfKBc9RdmcuJq6mbjq/TjaxnanX9H9r9zN52gb252moq9dkT0ng9NWamW17a6UltSSunO5d37e3/n5MIIlktDFTLpAGdKj1L0UeFTUQm4gzM4bX+KqnoCHuBrBEiigUhE80l2aL5pxOgkDlloAFGWzuefTzTxaT8DXeXQFl3kUTUsCD4Cx5wJJPajCbVE+kCe/5o0RPOaNASzLmAzwQFTNWeNZw3zxgHbEpYZ9ID9vT9VNnryCJ3nyApZIsm4y8+gvLzuU0sZnlsr7bcA9qAv1B/3Vda8LA/heFxTpni7xrItHqWFLhFtqhBLPSstn6skBfKODxxfUsRfwve5b70j2tA8mxaBI/Lga+lTrJddQh6Txx/VzD/6uvopdEUcSwFBDKadIEnjp05QWPKFKrXmibu/A33OpggXOQpMT0wpF3++lMSQMIL7K0WN1bP19HUsFG7LCdVn03K6fkRdpFOhJE/kz6xQCH+/iqnCL0PGcABwTJvuhT7KE9AxYCoGn1kdVfb9OsaaJFEpJ0zCdoto82qFvSPIdj8Ypbp5el+3/pZy0/9h5ch26u4x288J1d9losJvdfr97Uvp/ts/wv95XGav40/b1+2ZkL983KxNCSqvUsh+7cBfuwl24C/dXuX8ACFzu4+gIPwIAAAAASUVORK5CYII=" alt="Indonesia Ministry of Health" loading="lazy" />
-        <img class="cert-logo" width="119" height="70" src="data:image/png;base64,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" alt="Food and Drug Administration Philippines" loading="lazy" />
+        <img class="cert-logo" width="119" height="70" src="/assets/certs/vietnam-moh.png" alt="Vietnam Ministry of Health" loading="lazy" />
+        <img class="cert-logo" width="119" height="70" src="/assets/certs/singapore-hsa.png" alt="Singapore Health Sciences Authority (HSA)" loading="lazy" />
+        <img class="cert-logo" width="119" height="70" src="/assets/certs/thailand-moph.png" alt="Thailand Ministry of Public Health" loading="lazy" />
+        <img class="cert-logo" width="119" height="70" src="/assets/certs/afaq-iso27001.png" alt="AFAQ ISO/IEC 27001 Information Security certification" loading="lazy" />
+        <img class="cert-logo" width="119" height="70" src="/assets/certs/us-fda.png" alt="U.S. Food and Drug Administration (FDA)" loading="lazy" />
+        <img class="cert-logo" width="119" height="70" src="/assets/certs/indonesia-moh.png" alt="Indonesia Ministry of Health" loading="lazy" />
+        <img class="cert-logo" width="119" height="70" src="/assets/certs/fda-philippines.png" alt="Food and Drug Administration Philippines" loading="lazy" />
       </div>
     </div>
 
@@ -2407,6 +2473,15 @@
         'form.success': "Thank you! We'll be in touch soon.",
         'info.label': 'Clinical Overview',
         'info.title': 'Integrated ECG Monitoring & Analysis',
+        "hero.lead": "Powered by AI for earlier arrhythmia detection: a waterproof, hypoallergenic patch you wear at home while it records every heartbeat.",
+        "hero.trust": "Regulatory approvals",
+        "stat.found": "more arrhythmias found",
+        "stat.days2": "days continuous",
+        "stat.light": "light & waterproof",
+        "stat.gram": "g",
+        "stat.src1": "Arrhythmias found in 59.5% of patients vs 19.0% with a 24-hour Holter. Liu C-M et al., International Journal of Cardiology, 2021.",
+        "stat.src2": "Records continuous ECG for up to 14 days. FDA 510(k) clearance K213233.",
+        "stat.src3": "19 g recorder on a waterproof, breathable adhesive patch. SIGKNOW Biomedical product specifications.",
         "studies.title": "What studies say",
         "studies.desc": "Published clinical research on 14-day ECG patch monitoring and patient experience.",
         "s1.text": "158 patients wore a 14-day ECG patch for an average of 12.3 days. The patch found arrhythmias in 59.5% of patients, compared with 19.0% for a 24-hour Holter, and 87.2% of the arrhythmias it recorded caused no symptoms. No serious adverse events were reported.",
@@ -2575,6 +2650,15 @@
         'form.success': 'תודה! נחזור אליך בהקדם.',
         'info.label': 'סקירה קלינית',
         'info.title': 'מערכת ניטור וניתוח א.ק.ג. משולבת',
+        "hero.lead": "גילוי מוקדם של הפרעות קצב בעזרת בינה מלאכותית: מדבקה עמידה במים והיפואלרגנית שעונדים בבית, והיא מקליטה כל פעימת לב.",
+        "hero.trust": "אישורים רגולטוריים",
+        "stat.found": "יותר הפרעות קצב מתגלות",
+        "stat.days2": "ימי ניטור רציף",
+        "stat.light": "קל ועמיד במים",
+        "stat.gram": "גרם",
+        "stat.src1": "הפרעות קצב התגלו אצל 59.5% מהמטופלים לעומת 19.0% בהולטר של 24 שעות. Liu C-M et al., International Journal of Cardiology, 2021.",
+        "stat.src2": "מקליט א.ק.ג. רציף עד 14 יום. אישור FDA 510(k) מספר K213233.",
+        "stat.src3": "מקליט במשקל 19 גרם על מדבקה עמידה במים ונושמת. מפרט המוצר של SIGKNOW Biomedical.",
         "studies.title": "מה אומרים המחקרים",
         "studies.desc": "מחקרים קליניים שפורסמו על ניטור במדבקת א.ק.ג. ל-14 יום ועל חוויית המטופלים.",
         "s1.text": "158 מטופלים ענדו מדבקת א.ק.ג. ל-14 יום במשך 12.3 ימים בממוצע. המדבקה גילתה הפרעות קצב אצל 59.5% מהמטופלים, לעומת 19.0% בהולטר של 24 שעות, ו-87.2% מהפרעות הקצב שתועדו לא גרמו לתסמינים. לא דווחו תופעות לוואי חמורות.",
@@ -2743,6 +2827,15 @@
         'form.success': 'Спасибо! Мы свяжемся с вами в ближайшее время.',
         'info.label': 'Клинический обзор',
         'info.title': 'Интегрированный мониторинг и анализ ЭКГ',
+        "hero.lead": "Раннее выявление аритмий с помощью ИИ: водостойкий гипоаллергенный патч, который вы носите дома, записывает каждый удар сердца.",
+        "hero.trust": "Регуляторные одобрения",
+        "stat.found": "больше выявленных аритмий",
+        "stat.days2": "дней непрерывно",
+        "stat.light": "лёгкий и водостойкий",
+        "stat.gram": "г",
+        "stat.src1": "Аритмии выявлены у 59,5% пациентов против 19,0% при 24-часовом Холтере. Liu C-M et al., International Journal of Cardiology, 2021.",
+        "stat.src2": "Непрерывная запись ЭКГ до 14 дней. Разрешение FDA 510(k) K213233.",
+        "stat.src3": "Регистратор весом 19 г на водостойком дышащем пластыре. Технические характеристики SIGKNOW Biomedical.",
         "studies.title": "Что говорят исследования",
         "studies.desc": "Опубликованные клинические исследования 14-дневного мониторинга ЭКГ-патчем и опыта пациентов.",
         "s1.text": "158 пациентов носили 14-дневный ЭКГ-патч в среднем 12,3 дня. Патч выявил аритмии у 59,5% пациентов против 19,0% при 24-часовом Холтере, причём 87,2% зарегистрированных аритмий протекали бессимптомно. Серьёзных нежелательных явлений не зафиксировано.",
@@ -3003,6 +3096,23 @@
 
       document.querySelectorAll('.reveal:not(.revealed)').forEach(el => observer.observe(el));
     }
+
+    /* ==============================
+       HERO STATS — count up once on load
+    ============================== */
+    (function () {
+      const els = document.querySelectorAll('[data-count]');
+      if (!els.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      els.forEach(el => { el.textContent = '0'; });
+      const start = performance.now() + 450, dur = 1200;
+      function tick(now) {
+        const p = Math.min(1, Math.max(0, (now - start) / dur));
+        const eased = 1 - Math.pow(1 - p, 3);
+        els.forEach(el => { el.textContent = Math.round(eased * Number(el.dataset.count)); });
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    })();
 
     /* ==============================
        STICKY NAV
