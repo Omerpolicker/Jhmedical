@@ -82,7 +82,8 @@
         "url": "https://jhmedical.co/",
         "manufacturer": { "@type": "Organization", "name": "SIGKNOW" },
         "provider": { "@id": "https://jhmedical.co/#org" }
-      }
+      },
+      {"@type": "FAQPage", "@id": "https://jhmedical.co/#faq", "mainEntity": [{"@type": "Question", "name": "What is EZYPRO®?", "acceptedAnswer": {"@type": "Answer", "text": "EZYPRO® is an ECG recorder that records and stores every heartbeat, followed by a reporting service for your doctor. It helps healthcare providers personalise treatment, and ECG is the first-line test for diagnosing heart problems."}}, {"@type": "Question", "name": "How long can I wear it?", "acceptedAnswer": {"@type": "Answer", "text": "Up to 14 days. Your physician will prescribe the right wear time for you, and actual wear time varies with lifestyle, environment and skin. If it comes off early, keep it safe and return it at your next appointment: all data recorded until then is saved and analysed."}}, {"@type": "Question", "name": "What if my skin gets red or itchy?", "acceptedAnswer": {"@type": "Answer", "text": "EZYPRO® meets regulatory requirements and passed biocompatibility testing, but skin sensitivity differs. Some people feel temporary itching or swelling. Keep the area dry, stay somewhere cool and avoid sweaty activities. If irritation persists, consult a medical professional."}}, {"@type": "Question", "name": "What should I do if I feel symptoms?", "acceptedAnswer": {"@type": "Answer", "text": "Press the blue button on EZYPRO®. The event is marked on your report, so your physician knows exactly when you felt it. Forgot to press? No problem: recording continues without interruption and no ECG data is missed."}}, {"@type": "Question", "name": "Can I shower, exercise or travel?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. EZYPRO® is waterproof, so you can shower and keep up light to moderate exercise. Avoid heavy sweating and stay cool and dry to complete your prescribed wear time. Don't take baths or go under water. You can pass airport security while wearing it."}}, {"@type": "Question", "name": "Can I swim or use hot springs?", "acceptedAnswer": {"@type": "Answer", "text": "No. Avoid any underwater activity and don't spray water directly on the device. Excess water can shorten wear time and make the patch fall off early."}}]}
     ]
   }
   </script>
@@ -1262,6 +1263,70 @@
       .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
     }
     /* ==============================
+       WHY / WHO / FAQ (content from SIGKNOW Biomedical)
+    ============================== */
+    section[id] { scroll-margin-top: var(--nav-h); }
+    .why { background: var(--white); }
+    .why-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 64px; align-items: center; }
+    .why-media { border-radius: var(--radius-lg); overflow: hidden; background: #D9D9DB; }
+    .why-media img { width: 100%; height: auto; display: block; }
+    .why-list { list-style: none; margin-top: 32px; display: flex; flex-direction: column; gap: 22px; }
+    .why-item { display: flex; gap: 16px; align-items: flex-start; }
+    .why-icon {
+      flex: 0 0 48px; height: 48px; border-radius: 14px; display: grid; place-items: center;
+      background: var(--accent-light); color: var(--navy);
+    }
+    .why-icon svg { width: 22px; height: 22px; }
+    .why-item h3 { font-size: 17px; color: var(--navy-dark); margin-bottom: 4px; }
+    .why-item p { font-size: 15px; color: var(--gray-600); line-height: 1.6; }
+
+    .who { background: var(--off-white); }
+    .who-head { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; margin-bottom: 48px; }
+    .who-img { width: 100%; height: auto; border-radius: var(--radius-lg); box-shadow: var(--shadow-md); }
+    .use-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .use-card {
+      background: var(--white); border: 1px solid var(--gray-100); border-radius: var(--radius-md);
+      padding: 26px 22px; display: flex; flex-direction: column; gap: 10px;
+    }
+    .use-card h3 { font-size: 17px; color: var(--navy-dark); }
+    .use-card p { font-size: 14px; color: var(--gray-600); line-height: 1.6; flex: 1; }
+    .use-stat { border-top: 1px solid var(--gray-100); padding-top: 14px; margin-top: 6px; }
+    .use-stat strong { display: block; font-family: var(--font-heading); font-size: 30px; font-weight: 800; color: var(--accent); line-height: 1.1; }
+    .use-stat span { font-size: 13px; color: var(--gray-600); line-height: 1.5; }
+    .who-sources { margin-top: 28px; font-size: 11px; color: var(--gray-400); line-height: 1.6; text-align: left; }
+
+    .faq { background: var(--white); }
+    .faq-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 64px; align-items: start; }
+    .faq-side img { width: 100%; height: auto; border-radius: var(--radius-lg); margin-top: 12px; }
+    .faq-list { display: flex; flex-direction: column; gap: 12px; }
+    .faq-item { border: 1px solid var(--gray-100); border-radius: var(--radius-md); background: var(--off-white); }
+    .faq-item summary {
+      list-style: none; cursor: pointer; padding: 18px 22px; display: flex; justify-content: space-between; gap: 16px;
+      font-family: var(--font-heading); font-weight: 700; font-size: 16px; color: var(--navy-dark);
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary::after { content: '+'; font-size: 22px; line-height: 1; color: var(--accent); transition: transform var(--transition); }
+    .faq-item[open] summary::after { transform: rotate(45deg); }
+    .faq-item summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: var(--radius-md); }
+    .faq-item p { padding: 0 22px 20px; font-size: 15px; color: var(--gray-600); line-height: 1.7; }
+
+    .cmp-list { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 48px; }
+    .cmp-group { display: flex; flex-direction: column; gap: 10px; }
+    .cmp-metric { font-family: var(--font-heading); font-weight: 700; font-size: 14px; color: var(--navy); }
+    .cmp-group .hbar-row { grid-template-columns: 110px 1fr 52px; }
+
+    @media (max-width: 1024px) {
+      .why-grid, .who-head, .faq-grid { grid-template-columns: 1fr; gap: 36px; }
+      .why-media { max-width: 460px; }
+      .use-grid { grid-template-columns: 1fr 1fr; }
+      .cmp-list { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .use-grid { grid-template-columns: 1fr; }
+    }
+    [dir="rtl"] .why-content, [dir="rtl"] .use-card, [dir="rtl"] .faq-item, [dir="rtl"] .who-head { text-align: right; }
+
+    /* ==============================
        EZYPRO DEVICE ANIMATION (replaces old GIF)
        Floating patch + heart-monitor sweep (4s loop, 1 beat/s)
     ============================== */
@@ -1626,6 +1691,120 @@
       </div>
     </div>
 
+    <!-- WHY EZYPRO -->
+    <section class="why" id="why">
+      <div class="section-inner why-grid">
+        <div class="why-media reveal">
+          <img src="/assets/man-wearing-ezypro.webp" width="800" height="844" loading="lazy"
+               alt="Man pointing to the EZYPRO® ECG patch worn on his chest under an open shirt" />
+        </div>
+        <div class="why-content reveal reveal-delay-1">
+          <span class="section-label" data-i18n="why.label">Why EZYPRO®</span>
+          <h2 class="section-title" data-i18n="why.title">Asia's No.1 arrhythmia monitor</h2>
+          <p class="section-desc" data-i18n="why.desc">A small patch that records every heartbeat for up to 14 days, while you get on with your life.</p>
+          <ul class="why-list">
+              <li class="why-item">
+                <span class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+                <div>
+                  <h3 data-i18n="f1.title">Prolonged ECG monitoring</h3>
+                  <p data-i18n="f1.desc">Continuous recording for up to 14 days detects arrhythmias 3× more often than a conventional 24-hour Holter.</p>
+                </div>
+              </li>
+              <li class="why-item">
+                <span class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.2 12.2a6 6 0 0 0-8.5-8.5L5 10.5V19h8.5z"/><path d="M16 8 2 22"/><path d="M17.5 15H9"/></svg></span>
+                <div>
+                  <h3 data-i18n="f2.title">Compact and comfortable</h3>
+                  <p data-i18n="f2.desc">A 19 g recorder on a breathable, hypoallergenic adhesive patch. Non-invasive, with no wires.</p>
+                </div>
+              </li>
+              <li class="why-item">
+                <span class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.7 6.3 8.4a8 8 0 1 0 11.4 0z"/></svg></span>
+                <div>
+                  <h3 data-i18n="f3.title">Waterproof and breathable</h3>
+                  <p data-i18n="f3.desc">Shower, sleep and keep up moderate activity as usual, with no disruption to your routine.</p>
+                </div>
+              </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHO IT'S FOR -->
+    <section class="who" id="who">
+      <div class="section-inner">
+        <div class="who-head">
+          <div class="reveal">
+            <span class="section-label" data-i18n="who.label">Who it's for</span>
+            <h2 class="section-title" data-i18n="who.title">One patch, four ways to protect your heart</h2>
+            <p class="section-desc" data-i18n="who.desc">Your physician may prescribe EZYPRO® when a short test is not enough to see what your heart is really doing.</p>
+          </div>
+          <img class="who-img reveal reveal-delay-1" src="/assets/patient-with-doctor.webp" width="1200" height="842" loading="lazy"
+               alt="Doctor reviewing ECG results on a tablet with a patient wearing the EZYPRO® patch" />
+        </div>
+        <div class="use-grid">
+          <article class="use-card reveal">
+            <h3 data-i18n="u1.title">Arrhythmia diagnosis</h3>
+            <p data-i18n="u1.desc">Palpitations, dizziness, chest tightness and shortness of breath are common symptoms. Atrial fibrillation (AFib) raises the risk of heart failure, stroke and death.</p>
+            <div class="use-stat"><strong dir="ltr">60%</strong><span data-i18n="u1.stat">of AFib is occasional, and over 30% of cases have no symptoms</span></div>
+          </article>
+          <article class="use-card reveal reveal-delay-1">
+            <h3 data-i18n="u2.title">Stroke prevention</h3>
+            <p data-i18n="u2.desc">AFib can form blood clots that travel to the brain and cause an ischemic stroke, which may lead to permanent disability.</p>
+            <div class="use-stat"><strong dir="ltr">30%</strong><span data-i18n="u2.stat">of ischemic strokes are caused by AFib, and AFib patients face 5× the stroke risk</span></div>
+          </article>
+          <article class="use-card reveal reveal-delay-2">
+            <h3 data-i18n="u3.title">After heart surgery</h3>
+            <p data-i18n="u3.desc">After surgery or ablation, arrhythmias often become symptomless. Long-term monitoring helps your physician adjust treatment at the right time.</p>
+            <div class="use-stat"><strong dir="ltr">40%</strong><span data-i18n="u3.stat">of post-operative patients are diagnosed with arrhythmias</span></div>
+          </article>
+          <article class="use-card reveal reveal-delay-3">
+            <h3 data-i18n="u4.title">Advanced health check-up</h3>
+            <p data-i18n="u4.desc">A routine resting ECG lasts about 5 minutes, which is too short to really know your heart. Prevention comes before cure.</p>
+            <div class="use-stat"><strong dir="ltr">9</strong><span data-i18n="u4.stat">common risk factors for arrhythmia that monitoring can help uncover</span></div>
+          </article>
+        </div>
+        <p class="who-sources" dir="ltr">Sources: World Health Organization; Stroke Res Treat 2013:849265; J Interv Card Electrophysiol 2000;4(2):369–82; Neurol Clin 2008;26:871–95; N Engl J Med 2014;370:2478–86; J Cardiovasc Med 2011;12(6):390–5; Liu C-M et al., Int J Cardiol 2021 (doi:10.1016/j.ijcard.2021.03.015).</p>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq" id="faq">
+      <div class="section-inner faq-grid">
+        <div class="faq-side reveal">
+          <span class="section-label" data-i18n="faq.label">FAQ</span>
+          <h2 class="section-title" data-i18n="faq.title">Questions patients ask</h2>
+          <img src="/assets/woman-wearing-ezypro.webp" width="1200" height="673" loading="lazy"
+               alt="Smiling woman relaxing on a sofa while wearing the EZYPRO® ECG patch" />
+        </div>
+        <div class="faq-list reveal reveal-delay-1">
+          <details class="faq-item">
+            <summary data-i18n="q1">What is EZYPRO®?</summary>
+            <p data-i18n="a1">EZYPRO® is an ECG recorder that records and stores every heartbeat, followed by a reporting service for your doctor. It helps healthcare providers personalise treatment, and ECG is the first-line test for diagnosing heart problems.</p>
+          </details>
+          <details class="faq-item">
+            <summary data-i18n="q2">How long can I wear it?</summary>
+            <p data-i18n="a2">Up to 14 days. Your physician will prescribe the right wear time for you, and actual wear time varies with lifestyle, environment and skin. If it comes off early, keep it safe and return it at your next appointment: all data recorded until then is saved and analysed.</p>
+          </details>
+          <details class="faq-item">
+            <summary data-i18n="q3">What if my skin gets red or itchy?</summary>
+            <p data-i18n="a3">EZYPRO® meets regulatory requirements and passed biocompatibility testing, but skin sensitivity differs. Some people feel temporary itching or swelling. Keep the area dry, stay somewhere cool and avoid sweaty activities. If irritation persists, consult a medical professional.</p>
+          </details>
+          <details class="faq-item">
+            <summary data-i18n="q4">What should I do if I feel symptoms?</summary>
+            <p data-i18n="a4">Press the blue button on EZYPRO®. The event is marked on your report, so your physician knows exactly when you felt it. Forgot to press? No problem: recording continues without interruption and no ECG data is missed.</p>
+          </details>
+          <details class="faq-item">
+            <summary data-i18n="q5">Can I shower, exercise or travel?</summary>
+            <p data-i18n="a5">Yes. EZYPRO® is waterproof, so you can shower and keep up light to moderate exercise. Avoid heavy sweating and stay cool and dry to complete your prescribed wear time. Don't take baths or go under water. You can pass airport security while wearing it.</p>
+          </details>
+          <details class="faq-item">
+            <summary data-i18n="q6">Can I swim or use hot springs?</summary>
+            <p data-i18n="a6">No. Avoid any underwater activity and don't spray water directly on the device. Excess water can shorten wear time and make the patch fall off early.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
     <!-- CONTACT -->
     <section class="contact" id="contact">
       <div class="section-inner contact-grid">
@@ -1837,6 +2016,33 @@
         <h2 class="section-title" data-i18n="charts.title">Detailed Clinical Data</h2>
         <p class="section-desc" data-i18n="charts.desc">Patient compliance, skin tolerability, arrhythmia detection comparisons, and detection rates — all from peer-reviewed clinical studies.</p>
 
+        <!-- ── EZYPRO vs Holter ── -->
+        <div class="chart-section reveal">
+          <h3 class="chart-title" data-i18n="cmp.title">EZYPRO® vs. 24-hour Holter</h3>
+          <p class="chart-subtitle" data-i18n="cmp.subtitle">Comparison data published by the manufacturer, SIGKNOW Biomedical</p>
+          <div class="cmp-list">
+            <div class="cmp-group">
+              <div class="cmp-metric" data-i18n="cmp.m1">Monitoring time (days)</div>
+              <div class="hbar-row"><span class="hbar-label">EZYPRO®</span><div class="hbar-track"><div class="hbar-fill" style="width:100%"></div></div><span class="hbar-val">14</span></div>
+              <div class="hbar-row"><span class="hbar-label" data-i18n="cmp.holter">24-hr Holter</span><div class="hbar-track"><div class="hbar-fill" style="width:7%; background:#94A3B8"></div></div><span class="hbar-val">1</span></div>
+            </div>
+            <div class="cmp-group">
+              <div class="cmp-metric" data-i18n="cmp.m2">Overall arrhythmia detection</div>
+              <div class="hbar-row"><span class="hbar-label">EZYPRO®</span><div class="hbar-track"><div class="hbar-fill" style="width:59.5%"></div></div><span class="hbar-val">59.5%</span></div>
+              <div class="hbar-row"><span class="hbar-label" data-i18n="cmp.holter">24-hr Holter</span><div class="hbar-track"><div class="hbar-fill" style="width:19.0%; background:#94A3B8"></div></div><span class="hbar-val">19.0%</span></div>
+            </div>
+            <div class="cmp-group">
+              <div class="cmp-metric" data-i18n="cmp.m3">Critical arrhythmia detection</div>
+              <div class="hbar-row"><span class="hbar-label">EZYPRO®</span><div class="hbar-track"><div class="hbar-fill" style="width:16.5%"></div></div><span class="hbar-val">16.5%</span></div>
+              <div class="hbar-row"><span class="hbar-label" data-i18n="cmp.holter">24-hr Holter</span><div class="hbar-track"><div class="hbar-fill" style="width:2.5%; background:#94A3B8"></div></div><span class="hbar-val">2.5%</span></div>
+            </div>
+            <div class="cmp-group">
+              <div class="cmp-metric" data-i18n="cmp.m4">Patient comfort</div>
+              <div class="hbar-row"><span class="hbar-label">EZYPRO®</span><div class="hbar-track"><div class="hbar-fill" style="width:91.6%"></div></div><span class="hbar-val">91.6%</span></div>
+              <div class="hbar-row"><span class="hbar-label" data-i18n="cmp.holter">24-hr Holter</span><div class="hbar-track"><div class="hbar-fill" style="width:69.0%; background:#94A3B8"></div></div><span class="hbar-val">69.0%</span></div>
+            </div>
+          </div>
+        </div>
         <!-- ── Chart 1: Patient Compliance ── -->
         <div class="chart-section reveal">
           <h3 class="chart-title" data-i18n="chart1.title">Patient Compliance — Wear Duration</h3>
@@ -2087,6 +2293,7 @@
           <ul class="footer-links-list">
             <li><a href="#home" data-i18n="nav.home">Home</a></li>
             <li><a href="#information" data-i18n="nav.info">More Information</a></li>
+            <li><a href="#faq" data-i18n="faq.label">FAQ</a></li>
             <li><a href="#contact" data-i18n="nav.contact">Contact Us</a></li>
             <li>
               <a href="/EZYPRO-brochure.pdf"
@@ -2167,6 +2374,51 @@
         'form.success': "Thank you! We'll be in touch soon.",
         'info.label': 'Clinical Overview',
         'info.title': 'Integrated ECG Monitoring & Analysis',
+        "why.label": "Why EZYPRO®",
+        "why.title": "Asia's No.1 arrhythmia monitor",
+        "why.desc": "A small patch that records every heartbeat for up to 14 days, while you get on with your life.",
+        "f1.title": "Prolonged ECG monitoring",
+        "f1.desc": "Continuous recording for up to 14 days detects arrhythmias 3× more often than a conventional 24-hour Holter.",
+        "f2.title": "Compact and comfortable",
+        "f2.desc": "A 19 g recorder on a breathable, hypoallergenic adhesive patch. Non-invasive, with no wires.",
+        "f3.title": "Waterproof and breathable",
+        "f3.desc": "Shower, sleep and keep up moderate activity as usual, with no disruption to your routine.",
+        "who.label": "Who it's for",
+        "who.title": "One patch, four ways to protect your heart",
+        "who.desc": "Your physician may prescribe EZYPRO® when a short test is not enough to see what your heart is really doing.",
+        "u1.title": "Arrhythmia diagnosis",
+        "u1.desc": "Palpitations, dizziness, chest tightness and shortness of breath are common symptoms. Atrial fibrillation (AFib) raises the risk of heart failure, stroke and death.",
+        "u1.stat": "of AFib is occasional, and over 30% of cases have no symptoms",
+        "u2.title": "Stroke prevention",
+        "u2.desc": "AFib can form blood clots that travel to the brain and cause an ischemic stroke, which may lead to permanent disability.",
+        "u2.stat": "of ischemic strokes are caused by AFib, and AFib patients face 5× the stroke risk",
+        "u3.title": "After heart surgery",
+        "u3.desc": "After surgery or ablation, arrhythmias often become symptomless. Long-term monitoring helps your physician adjust treatment at the right time.",
+        "u3.stat": "of post-operative patients are diagnosed with arrhythmias",
+        "u4.title": "Advanced health check-up",
+        "u4.desc": "A routine resting ECG lasts about 5 minutes, which is too short to really know your heart. Prevention comes before cure.",
+        "u4.stat": "common risk factors for arrhythmia that monitoring can help uncover",
+        "faq.label": "FAQ",
+        "faq.title": "Questions patients ask",
+        "q1": "What is EZYPRO®?",
+        "a1": "EZYPRO® is an ECG recorder that records and stores every heartbeat, followed by a reporting service for your doctor. It helps healthcare providers personalise treatment, and ECG is the first-line test for diagnosing heart problems.",
+        "q2": "How long can I wear it?",
+        "a2": "Up to 14 days. Your physician will prescribe the right wear time for you, and actual wear time varies with lifestyle, environment and skin. If it comes off early, keep it safe and return it at your next appointment: all data recorded until then is saved and analysed.",
+        "q3": "What if my skin gets red or itchy?",
+        "a3": "EZYPRO® meets regulatory requirements and passed biocompatibility testing, but skin sensitivity differs. Some people feel temporary itching or swelling. Keep the area dry, stay somewhere cool and avoid sweaty activities. If irritation persists, consult a medical professional.",
+        "q4": "What should I do if I feel symptoms?",
+        "a4": "Press the blue button on EZYPRO®. The event is marked on your report, so your physician knows exactly when you felt it. Forgot to press? No problem: recording continues without interruption and no ECG data is missed.",
+        "q5": "Can I shower, exercise or travel?",
+        "a5": "Yes. EZYPRO® is waterproof, so you can shower and keep up light to moderate exercise. Avoid heavy sweating and stay cool and dry to complete your prescribed wear time. Don't take baths or go under water. You can pass airport security while wearing it.",
+        "q6": "Can I swim or use hot springs?",
+        "a6": "No. Avoid any underwater activity and don't spray water directly on the device. Excess water can shorten wear time and make the patch fall off early.",
+        "cmp.title": "EZYPRO® vs. 24-hour Holter",
+        "cmp.subtitle": "Comparison data published by the manufacturer, SIGKNOW Biomedical",
+        "cmp.m1": "Monitoring time (days)",
+        "cmp.m2": "Overall arrhythmia detection",
+        "cmp.m3": "Critical arrhythmia detection",
+        "cmp.m4": "Patient comfort",
+        "cmp.holter": "24-hr Holter",
         'info.desc': 'The ECG Patch Monitor integrates seamlessly with an advanced ECG Analysis Service. It supports physicians, healthcare providers, and patients by enabling more accurate diagnoses, improved treatment decisions, and continuous, seamless monitoring.',
         'process.label': 'How It Works',
         'process.title': 'EZYPRO® Service Process',
@@ -2285,6 +2537,51 @@
         'form.success': 'תודה! נחזור אליך בהקדם.',
         'info.label': 'סקירה קלינית',
         'info.title': 'מערכת ניטור וניתוח א.ק.ג. משולבת',
+        "why.label": "למה EZYPRO®",
+        "why.title": "מוניטור הפרעות הקצב המוביל באסיה",
+        "why.desc": "מדבקה קטנה שמקליטה כל פעימת לב עד 14 יום, בזמן שאתם ממשיכים בשגרה.",
+        "f1.title": "ניטור א.ק.ג. ממושך",
+        "f1.desc": "הקלטה רציפה של עד 14 יום מגלה הפרעות קצב פי 3 יותר מהולטר רגיל של 24 שעות.",
+        "f2.title": "קטן ונוח",
+        "f2.desc": "מקליט במשקל 19 גרם על מדבקה נושמת והיפואלרגנית. לא פולשני וללא חוטים.",
+        "f3.title": "עמיד במים ונושם",
+        "f3.desc": "אפשר להתקלח, לישון ולשמור על פעילות מתונה כרגיל, בלי לשבש את השגרה.",
+        "who.label": "למי זה מתאים",
+        "who.title": "מדבקה אחת, ארבע דרכים לשמור על הלב",
+        "who.desc": "הרופא עשוי להמליץ על EZYPRO® כשבדיקה קצרה לא מספיקה כדי לראות מה הלב באמת עושה.",
+        "u1.title": "אבחון הפרעות קצב",
+        "u1.desc": "דפיקות לב, סחרחורת, לחץ בחזה וקוצר נשימה הם תסמינים נפוצים. פרפור פרוזדורים (AFib) מעלה את הסיכון לאי-ספיקת לב, לשבץ ולמוות.",
+        "u1.stat": "מהמקרים של AFib הם התקפיים, ויותר מ-30% הם ללא תסמינים",
+        "u2.title": "מניעת שבץ",
+        "u2.desc": "AFib עלול ליצור קרישי דם שנודדים למוח וגורמים לשבץ איסכמי, שעלול להוביל לנכות קבועה.",
+        "u2.stat": "ממקרי השבץ האיסכמי נגרמים מ-AFib, והסיכון לשבץ אצל חולי AFib גבוה פי 5",
+        "u3.title": "לאחר ניתוח לב",
+        "u3.desc": "לאחר ניתוח או אבלציה, הפרעות קצב הופכות לעיתים קרובות לא-תסמיניות. ניטור ממושך עוזר לרופא להתאים את הטיפול בזמן.",
+        "u3.stat": "מהמטופלים לאחר ניתוח מאובחנים עם הפרעות קצב",
+        "u4.title": "בדיקת לב מתקדמת",
+        "u4.desc": "א.ק.ג. במנוחה בבדיקה שגרתית נמשך כ-5 דקות, זמן קצר מדי כדי להכיר באמת את הלב. מניעה עדיפה על טיפול.",
+        "u4.stat": "גורמי סיכון נפוצים להפרעות קצב שניטור יכול לעזור לחשוף",
+        "faq.label": "שאלות נפוצות",
+        "faq.title": "שאלות שמטופלים שואלים",
+        "q1": "מה זה EZYPRO®?",
+        "a1": "EZYPRO® הוא מקליט א.ק.ג. שמקליט ושומר כל פעימת לב, ולאחר מכן מופק דוח לרופא המטפל. הוא מסייע לצוות הרפואי להתאים טיפול אישי, וא.ק.ג. הוא בדיקת הקו הראשון לאבחון בעיות לב.",
+        "q2": "כמה זמן אפשר לענוד אותו?",
+        "a2": "עד 14 יום. הרופא יקבע את משך הענידה המתאים לכם, ומשך הענידה בפועל משתנה לפי אורח החיים, הסביבה וסוג העור. אם המדבקה נופלת מוקדם, שמרו אותה והחזירו אותה בביקור הבא: כל הנתונים שהוקלטו עד אז נשמרים ומנותחים.",
+        "q3": "מה לעשות אם העור מאדים או מגרד?",
+        "a3": "EZYPRO® עומד בדרישות הרגולציה ועבר בדיקות התאמה ביולוגית, אך רגישות העור משתנה מאדם לאדם. חלק מהאנשים חשים גרד או נפיחות זמניים. שמרו על האזור יבש, הישארו בסביבה קרירה והימנעו מפעילות מזיעה. אם הגירוי נמשך, פנו לגורם רפואי.",
+        "q4": "מה לעשות כשאני מרגיש תסמינים?",
+        "a4": "לחצו על הכפתור הכחול ב-EZYPRO®. האירוע מסומן בדוח, כך שהרופא יודע בדיוק מתי הרגשתם אותו. שכחתם ללחוץ? אין בעיה: ההקלטה ממשיכה ללא הפסקה ושום נתון א.ק.ג. לא הולך לאיבוד.",
+        "q5": "אפשר להתקלח, להתאמן או לטוס?",
+        "a5": "כן. EZYPRO® עמיד במים, כך שאפשר להתקלח ולשמור על פעילות גופנית קלה עד מתונה. הימנעו מהזעה מרובה ושמרו על סביבה קרירה ויבשה כדי להשלים את משך הענידה. אין להתרחץ באמבטיה או לשהות מתחת למים. אפשר לעבור בדיקה ביטחונית בשדה התעופה עם המדבקה.",
+        "q6": "אפשר לשחות או להיכנס למעיינות חמים?",
+        "a6": "לא. יש להימנע מכל פעילות מתחת למים ולא לכוון זרם מים ישירות על המכשיר. עודף מים עלול לקצר את משך הענידה ולגרום למדבקה ליפול מוקדם.",
+        "cmp.title": "EZYPRO® מול הולטר 24 שעות",
+        "cmp.subtitle": "נתוני השוואה שפורסמו על ידי היצרן, SIGKNOW Biomedical",
+        "cmp.m1": "משך ניטור (ימים)",
+        "cmp.m2": "גילוי הפרעות קצב כולל",
+        "cmp.m3": "גילוי הפרעות קצב קריטיות",
+        "cmp.m4": "נוחות המטופל",
+        "cmp.holter": "הולטר 24 שעות",
         'info.desc': 'מדבקת הניטור משתלבת בצורה חלקה עם שירות ניתוח א.ק.ג. מתקדם, ומאפשרת לרופאים ולמטופלים קבלת אבחנות מדויקות יותר, החלטות טיפול טובות יותר, וניטור לבבי רציף.',
         'process.label': 'כיצד זה עובד',
         'process.title': 'תהליך השימוש ב-EZYPRO®',
@@ -2403,6 +2700,51 @@
         'form.success': 'Спасибо! Мы свяжемся с вами в ближайшее время.',
         'info.label': 'Клинический обзор',
         'info.title': 'Интегрированный мониторинг и анализ ЭКГ',
+        "why.label": "Почему EZYPRO®",
+        "why.title": "Монитор аритмий №1 в Азии",
+        "why.desc": "Небольшой патч записывает каждый удар сердца до 14 дней, пока вы живёте обычной жизнью.",
+        "f1.title": "Длительный мониторинг ЭКГ",
+        "f1.desc": "Непрерывная запись до 14 дней выявляет аритмии в 3 раза чаще, чем обычный 24-часовой Холтер.",
+        "f2.title": "Компактный и удобный",
+        "f2.desc": "Регистратор весом 19 г на дышащем гипоаллергенном пластыре. Неинвазивно и без проводов.",
+        "f3.title": "Водостойкий и дышащий",
+        "f3.desc": "Можно принимать душ, спать и сохранять умеренную активность без нарушения привычного ритма.",
+        "who.label": "Кому подходит",
+        "who.title": "Один патч — четыре способа защитить сердце",
+        "who.desc": "Врач может назначить EZYPRO®, когда короткого обследования недостаточно, чтобы понять, что на самом деле происходит с сердцем.",
+        "u1.title": "Диагностика аритмий",
+        "u1.desc": "Сердцебиение, головокружение, стеснение в груди и одышка — частые симптомы. Фибрилляция предсердий (ФП) повышает риск сердечной недостаточности, инсульта и смерти.",
+        "u1.stat": "случаев ФП эпизодические, более 30% протекают бессимптомно",
+        "u2.title": "Профилактика инсульта",
+        "u2.desc": "При ФП могут образовываться тромбы, которые попадают в мозг и вызывают ишемический инсульт с риском стойкой инвалидности.",
+        "u2.stat": "ишемических инсультов вызваны ФП, а риск инсульта при ФП в 5 раз выше",
+        "u3.title": "После операции на сердце",
+        "u3.desc": "После операции или абляции аритмии часто протекают бессимптомно. Длительный мониторинг помогает врачу вовремя скорректировать лечение.",
+        "u3.stat": "пациентов после операций выявляют аритмии",
+        "u4.title": "Расширенный осмотр сердца",
+        "u4.desc": "Обычная ЭКГ в покое длится около 5 минут — слишком мало, чтобы по-настоящему узнать своё сердце. Профилактика лучше лечения.",
+        "u4.stat": "распространённых факторов риска аритмии, которые помогает выявить мониторинг",
+        "faq.label": "Вопросы и ответы",
+        "faq.title": "Частые вопросы пациентов",
+        "q1": "Что такое EZYPRO®?",
+        "a1": "EZYPRO® — регистратор ЭКГ, который записывает и сохраняет каждый удар сердца, после чего врач получает подробный отчёт. Он помогает подобрать индивидуальное лечение, а ЭКГ — основной первичный метод диагностики болезней сердца.",
+        "q2": "Сколько можно носить патч?",
+        "a2": "До 14 дней. Подходящий срок назначит врач, а фактическое время ношения зависит от образа жизни, окружающей среды и кожи. Если патч отклеился раньше, сохраните его и верните на следующем приёме: все данные, записанные до этого, сохранятся и будут проанализированы.",
+        "q3": "Что делать при покраснении или зуде кожи?",
+        "a3": "EZYPRO® соответствует нормативным требованиям и прошёл испытания на биосовместимость, но чувствительность кожи у всех разная. У некоторых возможен временный зуд или отёк. Держите место крепления сухим, находитесь в прохладе и избегайте активности, вызывающей потоотделение. Если раздражение не проходит, обратитесь к врачу.",
+        "q4": "Что делать, если появились симптомы?",
+        "a4": "Нажмите синюю кнопку на EZYPRO®. Событие будет отмечено в отчёте, и врач узнает, когда именно вы его почувствовали. Забыли нажать? Не страшно: запись продолжается без перерыва, данные ЭКГ не теряются.",
+        "q5": "Можно ли принимать душ, заниматься спортом или путешествовать?",
+        "a5": "Да. EZYPRO® водостойкий: можно принимать душ и сохранять лёгкую или умеренную физическую активность. Избегайте сильного потоотделения, оставайтесь в прохладе и сухости, чтобы носить патч весь назначенный срок. Не принимайте ванну и не погружайтесь под воду. С патчем можно проходить досмотр в аэропорту.",
+        "q6": "Можно ли плавать или посещать горячие источники?",
+        "a6": "Нет. Избегайте любых погружений в воду и не направляйте струю воды прямо на устройство. Избыток влаги может сократить срок ношения и привести к преждевременному отклеиванию.",
+        "cmp.title": "EZYPRO® против 24-часового Холтера",
+        "cmp.subtitle": "Сравнительные данные производителя, SIGKNOW Biomedical",
+        "cmp.m1": "Длительность мониторинга (дни)",
+        "cmp.m2": "Общее выявление аритмий",
+        "cmp.m3": "Выявление опасных аритмий",
+        "cmp.m4": "Комфорт пациента",
+        "cmp.holter": "Холтер 24 ч",
         'info.desc': 'ЭКГ-пластырь бесшовно интегрируется с продвинутым сервисом анализа ЭКГ, поддерживая врачей и пациентов.',
         'process.label': 'Как это работает',
         'process.title': 'Процесс обслуживания EZYPRO®',
@@ -2579,12 +2921,10 @@
       // Re-observe reveal elements on the newly visible page
       setTimeout(initReveal, 100);
 
-      // #contact: after reset to top, smoothly scroll down to the contact section
-      if (hash === '#contact') {
-        setTimeout(() => {
-          const section = document.getElementById('contact');
-          if (section) section.scrollIntoView({ behavior: 'smooth' });
-        }, 80);
+      // In-page sections (#contact, #faq, #why, #who): after reset to top, smoothly scroll to them
+      const target = hash.length > 1 && pageId === 'home' && hash !== '#home' ? document.getElementById(hash.slice(1)) : null;
+      if (target) {
+        setTimeout(() => target.scrollIntoView({ behavior: 'smooth' }), 80);
       }
     }
 
