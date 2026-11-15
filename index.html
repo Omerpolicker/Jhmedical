@@ -1263,15 +1263,13 @@
     }
     /* ==============================
        EZYPRO DEVICE ANIMATION (replaces old GIF)
-       12s loop: Recording → AI analysis → Report ready
+       Floating patch + heart-monitor sweep (4s loop, 1 beat/s)
     ============================== */
     .ecg-anim {
       position: relative;
       aspect-ratio: 1 / 1.05;
-      line-height: 1.4;
-      color: #fff;
       background:
-        radial-gradient(120% 70% at 50% 45%, rgba(74,144,217,0.28) 0%, rgba(74,144,217,0) 60%),
+        radial-gradient(120% 70% at 50% 40%, rgba(74,144,217,0.28) 0%, rgba(74,144,217,0) 60%),
         linear-gradient(180deg, #16245e 0%, var(--navy-dark) 100%);
       overflow: hidden;
       isolation: isolate;
@@ -1284,31 +1282,8 @@
       background-size: 24px 24px;
       mask-image: radial-gradient(80% 70% at 50% 50%, #000 40%, transparent 100%);
     }
-    .ecg-top {
-      position: absolute; top: 20px; inset-inline: 22px;
-      display: flex; justify-content: space-between; align-items: center;
-      font-family: var(--font-heading); font-size: 12px; font-weight: 700;
-      letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.75);
-    }
-    .ecg-live { display: inline-flex; align-items: center; gap: 8px; }
-    .ecg-live i {
-      width: 8px; height: 8px; border-radius: 50%; background: #5FE3C0;
-      box-shadow: 0 0 0 0 rgba(95,227,192,.7); animation: ecgBlink 1s ease-out infinite;
-    }
-    .ecg-day { font-variant-numeric: tabular-nums; }
-    .ecg-day b { color: #fff; }
-    .ecg-trace {
-      position: absolute; inset-inline: 0; top: 30%; height: 34%;
-      overflow: hidden; z-index: 0;
-      mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
-    }
-    .ecg-trace svg { width: 200%; height: 100%; display: block; animation: ecgScroll 6s linear infinite; }
-    .ecg-trace path {
-      fill: none; stroke: #6FD3FF; stroke-width: 2; vector-effect: non-scaling-stroke;
-      stroke-linejoin: round; filter: drop-shadow(0 0 6px rgba(111,211,255,.85));
-    }
     .ecg-device {
-      position: absolute; left: 50%; top: 47%; width: 64%;
+      position: absolute; left: 50%; top: 38%; width: 62%;
       transform: translate(-50%, -50%); z-index: 1;
       animation: ecgFloat 6s ease-in-out infinite;
     }
@@ -1327,53 +1302,25 @@
       animation: ecgRing 1s cubic-bezier(.2,.6,.3,1) infinite;
     }
     .ecg-pulse span:nth-child(2) { animation-delay: .25s; }
-    .ecg-flag {
-      position: absolute; top: 19%; inset-inline-end: 9%; z-index: 2;
-      font-family: var(--font-heading); font-size: 12px; font-weight: 700;
-      padding: 6px 12px; border-radius: 999px;
-      background: rgba(255,107,107,.16); color: #FFB4B4; border: 1px solid rgba(255,107,107,.45);
-      opacity: 0; animation: ecgFlag 12s ease infinite;
+    /* heart monitor */
+    .ecg-monitor {
+      position: absolute; left: 6%; right: 6%; bottom: 7%; height: 34%;
+      direction: ltr;
+      mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
     }
-    .ecg-bottom { position: absolute; bottom: 20px; inset-inline: 22px; z-index: 2; }
-    .ecg-bar { height: 4px; border-radius: 4px; background: rgba(255,255,255,.12); overflow: hidden; margin-bottom: 14px; }
-    .ecg-bar i {
-      display: block; height: 100%; width: 100%; transform-origin: left center;
-      background: linear-gradient(90deg, #4A90D9, #6FD3FF);
-      animation: ecgBar 12s linear infinite;
+    .ecg-monitor svg { width: 100%; height: 100%; display: block; overflow: visible; }
+    .ecg-monitor path {
+      fill: none; stroke-width: 2.4; stroke-linejoin: round; stroke-linecap: round;
     }
-    [dir="rtl"] .ecg-bar i { transform-origin: right center; }
-    .ecg-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-    .ecg-steps span {
-      text-align: center; font-family: var(--font-heading); font-size: 12px; font-weight: 600;
-      padding: 8px 6px; border-radius: 10px;
-      background: rgba(255,255,255,.06); color: rgba(255,255,255,.5);
-      border: 1px solid rgba(255,255,255,.08);
-      animation: ecgStep 12s step-end infinite;
-    }
-    .ecg-steps span:nth-child(2) { animation-delay: -8s; }
-    .ecg-steps span:nth-child(3) { animation-delay: -4s; }
-    @keyframes ecgScroll { to { transform: translateX(-50%); } }
-    [dir="rtl"] .ecg-trace svg { animation-name: ecgScrollRtl; }
-    @keyframes ecgScrollRtl { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+    .ecg-ghost { stroke: rgba(111,211,255,.16); }
+    .ecg-draw  { stroke: #6FD3FF; filter: drop-shadow(0 0 5px rgba(111,211,255,.9)); }
+    .ecg-dot   { fill: #fff; filter: drop-shadow(0 0 6px #6FD3FF) drop-shadow(0 0 12px #6FD3FF); }
     @keyframes ecgFloat { 0%,100% { transform: translate(-50%, -50%) rotate(-1.5deg); } 50% { transform: translate(-50%, -54%) rotate(1deg); } }
     @keyframes ecgRing { 0% { transform: scale(.6); opacity: 1; } 100% { transform: scale(2.4); opacity: 0; } }
-    @keyframes ecgBlink { 0% { box-shadow: 0 0 0 0 rgba(95,227,192,.7); } 100% { box-shadow: 0 0 0 8px rgba(95,227,192,0); } }
-    @keyframes ecgBar { from { transform: scaleX(.02); } to { transform: scaleX(1); } }
-    @keyframes ecgFlag { 0%,38% { opacity: 0; transform: translateY(6px); } 42%,62% { opacity: 1; transform: none; } 66%,100% { opacity: 0; transform: translateY(-6px); } }
-    /* each chip is "active" for one third of the loop */
-    @keyframes ecgStep {
-      0%      { background: rgba(74,144,217,.28); color: #fff; border-color: rgba(111,211,255,.6); }
-      33.333% { background: rgba(255,255,255,.06); color: rgba(255,255,255,.5); border-color: rgba(255,255,255,.08); }
-    }
     @media (prefers-reduced-motion: reduce) {
-      .ecg-anim *, .ecg-anim *::after { animation: none !important; }
-      .ecg-flag { opacity: 1; }
-      .ecg-pulse { display: none; }
-    }
-    @media (max-width: 480px) {
-      .ecg-device { width: 56%; top: 52%; }
-      .ecg-flag { top: 15%; font-size: 11px; padding: 4px 10px; }
-      .ecg-steps span { font-size: 11px; padding: 7px 4px; }
+      .ecg-anim * { animation: none !important; }
+      .ecg-pulse, .ecg-draw, .ecg-dot { display: none; }
+      .ecg-ghost { stroke: #6FD3FF; }
     }
     .lang-btn { white-space: nowrap; }
 
@@ -1812,28 +1759,25 @@
             </div>
           </div>
           <div class="process-image reveal reveal-delay-2">
-            <div class="ecg-anim" role="img" aria-label="Animation: the EZYPRO® patch records a continuous ECG for up to 14 days, AI analysis flags arrhythmias, and a report is sent to the physician">
-              <div class="ecg-top" aria-hidden="true">
-                <span class="ecg-live"><i></i><span data-i18n="anim.live">Live ECG</span></span>
-                <span class="ecg-day"><span data-i18n="anim.day">Day</span> <b id="ecgDay">14</b> / 14</span>
-              </div>
-              <div class="ecg-trace" aria-hidden="true">
-                <svg viewBox="0 0 800 100" preserveAspectRatio="none">
-                  <path d="M0 55 L30 55 L35 50 L40 55 L46 55 L49 63 L53 12 L57 72 L61 55 L70 55 L77 46 L85 55 L100 55 L130 55 L135 50 L140 55 L146 55 L149 63 L153 12 L157 72 L161 55 L170 55 L177 46 L185 55 L200 55 L222 55 L226 51 L229 55 L233 63 L237 18 L241 70 L245 55 L252 55 L258 48 L266 55 L276 55 L281 61 L285 22 L289 68 L293 55 L300 55 L330 55 L335 50 L340 55 L346 55 L349 63 L353 12 L357 72 L361 55 L370 55 L377 46 L385 55 L400 55 L430 55 L435 50 L440 55 L446 55 L449 63 L453 12 L457 72 L461 55 L470 55 L477 46 L485 55 L500 55 L530 55 L535 50 L540 55 L546 55 L549 63 L553 12 L557 72 L561 55 L570 55 L577 46 L585 55 L600 55 L622 55 L626 51 L629 55 L633 63 L637 18 L641 70 L645 55 L652 55 L658 48 L666 55 L676 55 L681 61 L685 22 L689 68 L693 55 L700 55 L730 55 L735 50 L740 55 L746 55 L749 63 L753 12 L757 72 L761 55 L770 55 L777 46 L785 55 L800 55" />
-                </svg>
-              </div>
+            <div class="ecg-anim" role="img" aria-label="Animation: the EZYPRO® ECG patch with a live heart-monitor trace">
               <div class="ecg-device">
                 <img src="/assets/ezypro-ecg-patch.webp" width="900" height="765" alt="" loading="lazy" />
                 <div class="ecg-pulse" aria-hidden="true"><span></span><span></span></div>
               </div>
-              <div class="ecg-flag" aria-hidden="true" data-i18n="anim.flag">⚡ Arrhythmia detected</div>
-              <div class="ecg-bottom" aria-hidden="true">
-                <div class="ecg-bar"><i></i></div>
-                <div class="ecg-steps">
-                  <span data-i18n="anim.rec">Recording</span>
-                  <span data-i18n="anim.ai">AI analysis</span>
-                  <span data-i18n="anim.report">Report ready</span>
-                </div>
+              <div class="ecg-monitor" aria-hidden="true">
+                <svg viewBox="0 0 400 140" preserveAspectRatio="xMidYMid meet">
+                  <path id="ecgPath" class="ecg-ghost" d="M0 86 L0 86 L28 86 L33 79 L39 86 L45 86 L48 96 L53 22 L58 108 L62 86 L70 86 L78 72 L87 86 L100 86 L100 86 L128 86 L133 79 L139 86 L145 86 L148 96 L153 28 L158 108 L162 86 L170 86 L178 72 L187 86 L200 86 L200 86 L228 86 L233 79 L239 86 L245 86 L248 96 L253 22 L258 108 L262 86 L270 86 L278 72 L287 86 L300 86 L300 86 L328 86 L333 79 L339 86 L345 86 L348 96 L353 26 L358 108 L362 86 L370 86 L378 72 L387 86 L400 86" />
+                  <path class="ecg-draw" d="M0 86 L0 86 L28 86 L33 79 L39 86 L45 86 L48 96 L53 22 L58 108 L62 86 L70 86 L78 72 L87 86 L100 86 L100 86 L128 86 L133 79 L139 86 L145 86 L148 96 L153 28 L158 108 L162 86 L170 86 L178 72 L187 86 L200 86 L200 86 L228 86 L233 79 L239 86 L245 86 L248 96 L253 22 L258 108 L262 86 L270 86 L278 72 L287 86 L300 86 L300 86 L328 86 L333 79 L339 86 L345 86 L348 96 L353 26 L358 108 L362 86 L370 86 L378 72 L387 86 L400 86" pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="1000">
+                    <animate attributeName="stroke-dashoffset" values="1000;0;0" keyTimes="0;0.85;1" dur="4s" repeatCount="indefinite" />
+                    <animate attributeName="opacity" values="1;1;0" keyTimes="0;0.85;1" dur="4s" repeatCount="indefinite" />
+                  </path>
+                  <circle class="ecg-dot" r="3.6">
+                    <animateMotion dur="4s" repeatCount="indefinite" keyPoints="0;1;1" keyTimes="0;0.85;1" calcMode="linear">
+                      <mpath href="#ecgPath" />
+                    </animateMotion>
+                    <animate attributeName="opacity" values="1;1;0" keyTimes="0;0.85;1" dur="4s" repeatCount="indefinite" />
+                  </circle>
+                </svg>
               </div>
             </div>
           </div>
@@ -2223,8 +2167,6 @@
         'form.success': "Thank you! We'll be in touch soon.",
         'info.label': 'Clinical Overview',
         'info.title': 'Integrated ECG Monitoring & Analysis',
-        'anim.live': 'Live ECG', 'anim.day': 'Day', 'anim.flag': '⚡ Arrhythmia detected',
-        'anim.rec': 'Recording', 'anim.ai': 'AI analysis', 'anim.report': 'Report ready',
         'info.desc': 'The ECG Patch Monitor integrates seamlessly with an advanced ECG Analysis Service. It supports physicians, healthcare providers, and patients by enabling more accurate diagnoses, improved treatment decisions, and continuous, seamless monitoring.',
         'process.label': 'How It Works',
         'process.title': 'EZYPRO® Service Process',
@@ -2343,8 +2285,6 @@
         'form.success': 'תודה! נחזור אליך בהקדם.',
         'info.label': 'סקירה קלינית',
         'info.title': 'מערכת ניטור וניתוח א.ק.ג. משולבת',
-        'anim.live': 'א.ק.ג. חי', 'anim.day': 'יום', 'anim.flag': '⚡ זוהתה הפרעת קצב',
-        'anim.rec': 'הקלטה', 'anim.ai': 'ניתוח AI', 'anim.report': 'הדוח מוכן',
         'info.desc': 'מדבקת הניטור משתלבת בצורה חלקה עם שירות ניתוח א.ק.ג. מתקדם, ומאפשרת לרופאים ולמטופלים קבלת אבחנות מדויקות יותר, החלטות טיפול טובות יותר, וניטור לבבי רציף.',
         'process.label': 'כיצד זה עובד',
         'process.title': 'תהליך השימוש ב-EZYPRO®',
@@ -2463,8 +2403,6 @@
         'form.success': 'Спасибо! Мы свяжемся с вами в ближайшее время.',
         'info.label': 'Клинический обзор',
         'info.title': 'Интегрированный мониторинг и анализ ЭКГ',
-        'anim.live': 'ЭКГ онлайн', 'anim.day': 'День', 'anim.flag': '⚡ Выявлена аритмия',
-        'anim.rec': 'Запись', 'anim.ai': 'Анализ ИИ', 'anim.report': 'Отчёт готов',
         'info.desc': 'ЭКГ-пластырь бесшовно интегрируется с продвинутым сервисом анализа ЭКГ, поддерживая врачей и пациентов.',
         'process.label': 'Как это работает',
         'process.title': 'Процесс обслуживания EZYPRO®',
@@ -2677,21 +2615,6 @@
 
       document.querySelectorAll('.reveal:not(.revealed)').forEach(el => observer.observe(el));
     }
-
-    /* ==============================
-       DEVICE ANIMATION — day counter follows the 12s progress bar
-    ============================== */
-    (function () {
-      const dayEl = document.getElementById('ecgDay');
-      const bar = document.querySelector('.ecg-bar i');
-      if (!dayEl || !bar || !bar.getAnimations) return;
-      setInterval(function () {
-        const a = bar.getAnimations()[0];
-        if (!a || a.currentTime == null) return;
-        const p = (a.currentTime % 12000) / 12000;
-        dayEl.textContent = Math.min(14, 1 + Math.floor(p * 14));
-      }, 200);
-    })();
 
     /* ==============================
        STICKY NAV
